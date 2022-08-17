@@ -3,20 +3,31 @@ import sys
 import os
 import logging
 import warnings
+from enum import Enum
+import yaml
+import io
 
 warnings.filterwarnings("ignore")
 
 from . import load_ui
 from . import __version__
 from .utilities.status_message_config import StatusMessageStatus, show_status_message
+from .history import History
 
 DEBUG = True
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
 
 
+class Status(Enum):
+    ok = 'ok'
+    error = 'error'
+
+
 class MainWindow(QMainWindow):
 
     autoreduce_config_file = None
+    # ipts_folder = "/HFIR/CG1D/"
+    ipts_folder = "/Users/j35/HFIR/CG1D/"  # DEBUGGING
 
     def __init__(self, parent=None):
         """
@@ -31,7 +42,60 @@ class MainWindow(QMainWindow):
 
     def initialize(self):
         self.initialize_statusbar()
-        self.initialize_config_file_name()
+
+        status = self.initialize_config_file_name()
+        if status == Status.error:
+            return
+
+        status = self.read_yaml()
+        if status == Status.error:
+            return
+
+        self.initialize_widgets()
+
+    def initialize_widgets(self):
+        self.ui.ipts_spinBox.setValue(int(self.ipts))
+        self.ui.xmin_spinBox.setValue(self.xmin)
+        self.ui.ymin_spinBox.setValue(self.ymin)
+        self.ui.xmax_spinBox.setValue(self.xmax)
+        self.ui.ymax_spinBox.setValue(self.ymax)
+
+    def read_yaml(self):
+        file_name = self.autoreduce_config_file
+        with open(file_name, "r") as stream:
+            yaml_data = yaml.safe_load(stream)
+
+        try:
+            self.ipts = yaml_data['DataPath']['ipts']
+        except KeyError:
+            self.ipts = 23788
+
+        try:
+            self.xmin = yaml_data['ROI']['xmin']
+        except KeyError:
+            self.xmin = 250
+
+        try:
+            self.xmax = yaml_data['ROI']['xmax']
+        except KeyError:
+            self.xmax = 1250
+
+        try:
+            self.ymin = yaml_data['ROI']['ymin']
+        except KeyError:
+            self.ymin = 600
+
+        try:
+            self.ymax = yaml_data['ROI']['ymax']
+        except KeyError:
+            self.ymax = 1300
+
+        try:
+            self.autoreduction_mode = yaml_data['autoreduction']
+        except KeyError:
+            self.autoreduction_mode = False
+
+        return Status.ok
 
     def initialize_statusbar(self):
         self.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
@@ -42,29 +106,56 @@ class MainWindow(QMainWindow):
         else:
             autoreduce_config_path = "/HFIR/CG1D/shared/autoreduce/"
         self.autoreduce_config_file = os.path.join(autoreduce_config_path, AUTOREDUCE_CONFIG_FILE_NAME)
-        show_status_message(parent=self,
-                            message=f"config: {self.autoreduce_config_file}",
-                            status=StatusMessageStatus.working)
+
+        if os.path.exists(self.autoreduce_config_file):
+            show_status_message(parent=self,
+                                message=f"config: {self.autoreduce_config_file} located!",
+                                status=StatusMessageStatus.working)
+            return Status.ok
+        else:
+            show_status_message(parent=self,
+                                message=f"{self.autoreduce_config_file} DOES NOT EXIST!",
+                                status=StatusMessageStatus.error)
+            self.ui.setEnabled(False)
+            return Status.error
 
     # event handler
     def ipts_value_changed(self, value):
-        print(f"ipts_value changed: {value}")
+        self.ipts_number = self.ui.ipts_spinBox.value()
 
     def preview_clicked(self):
-        print("preview clicked")
-
-    def reset_history_clicked(self):
-        print("reset history clicked")
+        o_history = History(parent=self)
+        o_history.show()
 
     def activate_auto_reconstruction_clicked(self):
         activate_status = self.ui.activate_auto_reconstruction_checkBox.isChecked()
         self.ui.auto_reconstruction_frame.setEnabled(activate_status)
 
     def ok_clicked(self):
-        print("ok clicked")
+        ipts_number = self.ui.ipts_spinBox.value()
+        xmin = self.ui.xmin_spinBox.value()
+        ymin = self.ui.ymin_spinBox.value()
+        xmax = self.ui.xmax_spinBox.value()
+        ymax = self.ui.ymax_spinBox.value()
+        autoreduction_mode = self.ui.activate_auto_reconstruction_checkBox.isChecked()
+
+        yaml_data = {'DataPath':
+                         {'ipts': ipts_number,
+                          },
+                     'ROI': {
+                         'xmin': xmin,
+                         'ymin': ymin,
+                         'xmax': xmax,
+                         'ymax': ymax,
+                            },
+                     'autoreduction': autoreduction_mode,
+                     }
+        with io.open(self.autoreduce_config_file, 'w') as outfile:
+            yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)
+
+        self.close()
 
     def closeEvent(self, event):
-        logging.info(" #### Leaving maverick ####")
         self.close()
 
 
