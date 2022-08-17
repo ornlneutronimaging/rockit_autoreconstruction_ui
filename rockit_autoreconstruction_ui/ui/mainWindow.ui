@@ -6,34 +6,152 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>951</width>
-    <height>682</height>
+    <width>433</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>maverick</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>300</y>
-      <width>311</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>This is a test !</string>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="text">
+       <string>Activate auto-reconstruction</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>IPTS</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox">
+           <property name="minimum">
+            <number>1000</number>
+           </property>
+           <property name="maximum">
+            <number>1000000</number>
+           </property>
+           <property name="value">
+            <number>23788</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>History of CT reduced</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>preview</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>reset history</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>153</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>951</width>
+     <width>433</width>
      <height>24</height>
     </rect>
    </property>
@@ -80,40 +198,109 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ok_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>activate_auto_reconstruction_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>preview_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>253</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reset_history_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>183</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>11</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ipts_value_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
-  <slot>session_load_clicked()</slot>
-  <slot>session_save_clicked()</slot>
-  <slot>help_log_clicked()</slot>
-  <slot>select_top_folder_button_clicked()</slot>
-  <slot>time_spectra_preview_clicked()</slot>
-  <slot>combine_algorithm_changed()</slot>
-  <slot>refresh_table_clicked()</slot>
-  <slot>combine_instrument_settings_changed()</slot>
-  <slot>bin_xaxis_changed()</slot>
-  <slot>combine_bin_tab_changed()</slot>
-  <slot>bin_auto_radioButton_clicked()</slot>
-  <slot>bin_auto_log_linear_radioButton_changed()</slot>
-  <slot>bin_auto_log_lambda_changed()</slot>
-  <slot>bin_auto_log_tof_changed()</slot>
-  <slot>bin_auto_log_file_index_changed()</slot>
-  <slot>bin_auto_linear_file_index_changed()</slot>
-  <slot>bin_auto_linear_tof_changed()</slot>
-  <slot>bin_auto_linear_lambda_changed()</slot>
-  <slot>auto_linear_radioButton_changed()</slot>
-  <slot>auto_log_radioButton_changed()</slot>
-  <slot>bin_auto_visualize_axis_generated_button_clicked()</slot>
-  <slot>bin_auto_hide_empty_bins()</slot>
-  <slot>bin_auto_table_right_clicked()</slot>
-  <slot>bin_auto_table_selection_changed()</slot>
-  <slot>bin_auto_table_selection_with_keyboard_changed()</slot>
-  <slot>bin_auto_manual_tab_changed()</slot>
-  <slot>bin_manual_add_bin_clicked()</slot>
-  <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
-  <slot>bin_manual_table_right_click()</slot>
-  <slot>bin_statistics_comboBox_changed()</slot>
-  <slot>export_combined_and_binned_images_clicked()</slot>
-  <slot>bin_settings_clicked()</slot>
-  <slot>bin_export_table_pushButton_clicked()</slot>
+  <slot>ok_clicked()</slot>
+  <slot>activate_auto_reconstruction_clicked()</slot>
+  <slot>preview_clicked()</slot>
+  <slot>reset_history_clicked()</slot>
+  <slot>ipts_value_changed()</slot>
  </slots>
 </ui>

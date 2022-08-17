@@ -22,6 +22,22 @@ class MainWindow(QMainWindow):
         self.ui = load_ui('mainWindow.ui', baseinstance=self)
         self.setWindowTitle(f"rockit auto-reconstruction ui - v{__version__}")
 
+    # event handler
+    def ipts_value_changed(self, value):
+        print(f"ipts_value changed: {value}")
+
+    def preview_clicked(self):
+        print("preview clicked")
+
+    def reset_history_clicked(self):
+        print("reset history clicked")
+
+    def activate_auto_reconstruction_clicked(self):
+        print("activate auto reconstruction clicked")
+
+    def ok_clicked(self):
+        print("ok clicked")
+
     def closeEvent(self, event):
         logging.info(" #### Leaving maverick ####")
         self.close()
