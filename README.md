@@ -1,2 +1,3 @@
-# rockit_autoreconstruction_ui
-UI teams will use to specify the IPTS to autoreduce...etc. 
+# rockit autoreconstruction UI
+
+This program will allow the imaging team to configure the auto-reconstruction script ran by rockit

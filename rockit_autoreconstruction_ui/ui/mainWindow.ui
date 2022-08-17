@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>951</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>maverick</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>300</y>
+      <width>311</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>This is a test !</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>951</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSession">
+    <property name="title">
+     <string>Session</string>
+    </property>
+    <addaction name="actionLoad"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionLog"/>
+   </widget>
+   <addaction name="menuSession"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Load ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLog">
+   <property name="text">
+    <string>Log ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+ <slots>
+  <slot>session_load_clicked()</slot>
+  <slot>session_save_clicked()</slot>
+  <slot>help_log_clicked()</slot>
+  <slot>select_top_folder_button_clicked()</slot>
+  <slot>time_spectra_preview_clicked()</slot>
+  <slot>combine_algorithm_changed()</slot>
+  <slot>refresh_table_clicked()</slot>
+  <slot>combine_instrument_settings_changed()</slot>
+  <slot>bin_xaxis_changed()</slot>
+  <slot>combine_bin_tab_changed()</slot>
+  <slot>bin_auto_radioButton_clicked()</slot>
+  <slot>bin_auto_log_linear_radioButton_changed()</slot>
+  <slot>bin_auto_log_lambda_changed()</slot>
+  <slot>bin_auto_log_tof_changed()</slot>
+  <slot>bin_auto_log_file_index_changed()</slot>
+  <slot>bin_auto_linear_file_index_changed()</slot>
+  <slot>bin_auto_linear_tof_changed()</slot>
+  <slot>bin_auto_linear_lambda_changed()</slot>
+  <slot>auto_linear_radioButton_changed()</slot>
+  <slot>auto_log_radioButton_changed()</slot>
+  <slot>bin_auto_visualize_axis_generated_button_clicked()</slot>
+  <slot>bin_auto_hide_empty_bins()</slot>
+  <slot>bin_auto_table_right_clicked()</slot>
+  <slot>bin_auto_table_selection_changed()</slot>
+  <slot>bin_auto_table_selection_with_keyboard_changed()</slot>
+  <slot>bin_auto_manual_tab_changed()</slot>
+  <slot>bin_manual_add_bin_clicked()</slot>
+  <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
+  <slot>bin_manual_table_right_click()</slot>
+  <slot>bin_statistics_comboBox_changed()</slot>
+  <slot>export_combined_and_binned_images_clicked()</slot>
+  <slot>bin_settings_clicked()</slot>
+  <slot>bin_export_table_pushButton_clicked()</slot>
+ </slots>
+</ui>
