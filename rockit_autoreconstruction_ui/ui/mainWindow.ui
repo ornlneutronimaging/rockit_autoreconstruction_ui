@@ -16,14 +16,14 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="activate_auto_reconstruction_checkBox">
       <property name="text">
        <string>Activate auto-reconstruction</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="auto_reconstruction_frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -41,7 +41,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="ipts_spinBox">
            <property name="minimum">
             <number>1000</number>
            </property>
@@ -81,14 +81,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="preview_pushButton">
             <property name="text">
-             <string>preview</string>
+             <string>preview ...</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="reset_history_pushButton">
             <property name="text">
              <string>reset history</string>
             </property>
@@ -116,7 +116,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="cancel_pushButton">
         <property name="text">
          <string>Cancel</string>
         </property>
@@ -136,7 +136,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="ok_pushButton">
         <property name="text">
          <string>OK</string>
         </property>
@@ -200,7 +200,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_4</sender>
+   <sender>ok_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ok_clicked()</slot>
@@ -216,7 +216,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>cancel_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -232,7 +232,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>activate_auto_reconstruction_checkBox</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>activate_auto_reconstruction_clicked()</slot>
@@ -248,7 +248,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>preview_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>preview_clicked()</slot>
@@ -264,7 +264,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>reset_history_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>reset_history_clicked()</slot>
@@ -280,7 +280,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox</sender>
+   <sender>ipts_spinBox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>ipts_value_changed()</slot>
