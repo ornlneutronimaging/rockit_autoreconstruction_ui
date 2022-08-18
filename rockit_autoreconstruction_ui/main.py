@@ -55,10 +55,11 @@ class MainWindow(QMainWindow):
 
     def initialize_widgets(self):
         self.ui.ipts_spinBox.setValue(int(self.ipts))
-        self.ui.xmin_spinBox.setValue(self.xmin)
-        self.ui.ymin_spinBox.setValue(self.ymin)
-        self.ui.xmax_spinBox.setValue(self.xmax)
-        self.ui.ymax_spinBox.setValue(self.ymax)
+
+        if self.xmin != "None": self.ui.xmin_spinBox.setValue(self.xmin)
+        if self.ymin != "None": self.ui.ymin_spinBox.setValue(self.ymin)
+        if self.xmax != "None": self.ui.xmax_spinBox.setValue(self.xmax)
+        if self.ymax != "None": self.ui.ymax_spinBox.setValue(self.ymax)
 
     def read_yaml(self):
         file_name = self.autoreduce_config_file
@@ -70,30 +71,38 @@ class MainWindow(QMainWindow):
         except KeyError:
             self.ipts = 23788
 
+        checked_crop_roi_checkbox = True
         try:
             self.xmin = yaml_data['ROI']['xmin']
         except KeyError:
-            self.xmin = 250
+            self.xmin = None
+            checked_crop_roi_checkbox = False
 
         try:
             self.xmax = yaml_data['ROI']['xmax']
         except KeyError:
-            self.xmax = 1250
+            self.xmax = None
+            checked_crop_roi_checkbox = False
 
         try:
             self.ymin = yaml_data['ROI']['ymin']
         except KeyError:
-            self.ymin = 600
+            self.ymin = None
+            checked_crop_roi_checkbox = False
 
         try:
             self.ymax = yaml_data['ROI']['ymax']
         except KeyError:
-            self.ymax = 1300
+            self.ymax = None
+            checked_crop_roi_checkbox = False
 
         try:
             self.autoreduction_mode = yaml_data['autoreduction']
         except KeyError:
             self.autoreduction_mode = False
+
+        self.ui.crop_roi_checkBox.setChecked(checked_crop_roi_checkbox)
+        self.crop_roi_checkBox_changed()
 
         return Status.ok
 
@@ -131,12 +140,25 @@ class MainWindow(QMainWindow):
         activate_status = self.ui.activate_auto_reconstruction_checkBox.isChecked()
         self.ui.auto_reconstruction_frame.setEnabled(activate_status)
 
+    def crop_roi_checkBox_changed(self):
+        status = self.ui.crop_roi_checkBox.isChecked()
+        self.ui.crop_roi_groupBox.setEnabled(status)
+
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
-        xmin = self.ui.xmin_spinBox.value()
-        ymin = self.ui.ymin_spinBox.value()
-        xmax = self.ui.xmax_spinBox.value()
-        ymax = self.ui.ymax_spinBox.value()
+
+        if self.ui.crop_roi_checkBox.isChecked():
+            xmin = self.ui.xmin_spinBox.value()
+            ymin = self.ui.ymin_spinBox.value()
+            xmax = self.ui.xmax_spinBox.value()
+            ymax = self.ui.ymax_spinBox.value()
+
+        else:
+            xmin = None
+            ymin = None
+            xmax = None
+            ymax = None
+
         autoreduction_mode = self.ui.activate_auto_reconstruction_checkBox.isChecked()
 
         yaml_data = {'DataPath':

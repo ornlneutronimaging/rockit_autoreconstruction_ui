@@ -94,9 +94,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
+        <widget class="QCheckBox" name="crop_roi_checkBox">
+         <property name="text">
           <string>Crop ROI</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="crop_roi_groupBox">
+         <property name="title">
+          <string/>
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="1" column="2">
@@ -429,8 +436,8 @@
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>418</y>
+     <x>781</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
@@ -445,8 +452,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>418</y>
+     <x>73</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
      <x>127</x>
@@ -502,6 +509,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>crop_roi_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crop_roi_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
@@ -509,5 +532,6 @@
   <slot>preview_clicked()</slot>
   <slot>reset_history_clicked()</slot>
   <slot>ipts_value_changed()</slot>
+  <slot>crop_roi_checkBox_changed()</slot>
  </slots>
 </ui>
