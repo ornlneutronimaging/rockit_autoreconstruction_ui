@@ -5,6 +5,7 @@ import os
 import json
 
 from . import load_ui
+from utilities.table_handler import TableHandler
 
 
 class History(QDialog):
@@ -40,10 +41,16 @@ class History(QDialog):
 		display_log = menu.addAction("Preview reconstruction log")
 
 		action = menu.exec_(QtGui.QCursor.pos())
+
+		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
+		selected_rows = o_table.get_row_selected()
+
 		if action == remove_selection:
-			print("remove")
+			for _row in selected_rows[::-1]:
+				o_table.remove_row(_row)
+
 		elif action == display_log:
-			print("display")
+			pass
 
 	def ok_pushed(self):
 		unformatted_content = self.ui.history_textEdit.toPlainText()
