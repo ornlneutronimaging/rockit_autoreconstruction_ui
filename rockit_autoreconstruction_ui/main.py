@@ -26,8 +26,8 @@ class Status(Enum):
 class MainWindow(QMainWindow):
 
     autoreduce_config_file = None
-    # ipts_folder = "/HFIR/CG1D/"
-    ipts_folder = "/Users/j35/HFIR/CG1D/"  # DEBUGGING
+    ipts_folder = "/HFIR/CG1D/"
+    if DEBUG: ipts_folder = "/Users/j35/HFIR/CG1D/"
 
     def __init__(self, parent=None):
         """
@@ -141,10 +141,10 @@ class MainWindow(QMainWindow):
         self.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def initialize_config_file_name(self):
+        autoreduce_config_path = "/HFIR/CG1D/shared/autoreduce/"
         if DEBUG:
             autoreduce_config_path = "/Users/j35/HFIR/CG1D/shared/autoreduce/"
-        else:
-            autoreduce_config_path = "/HFIR/CG1D/shared/autoreduce/"
+
         self.autoreduce_config_file = os.path.join(autoreduce_config_path, AUTOREDUCE_CONFIG_FILE_NAME)
 
         if os.path.exists(self.autoreduce_config_file):
