@@ -18,6 +18,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QTableWidget" name="history_tableWidget">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPlainTextEdit" name="history_textEdit"/>
    </item>
    <item>
@@ -118,8 +125,25 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>history_tableWidget</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>Dialog</receiver>
+   <slot>history_right_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>170</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>753</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_pushed()</slot>
+  <slot>history_right_click()</slot>
  </slots>
 </ui>

@@ -1,4 +1,6 @@
-from qtpy.QtWidgets import QDialog
+from qtpy.QtWidgets import QDialog, QMenu
+from qtpy import QtGui
+
 import os
 import json
 
@@ -30,6 +32,18 @@ class History(QDialog):
 
 		else:
 			self.ui.history_textEdit.setPlainText("file does not exists yet!")
+
+	def history_right_click(self, point):
+		menu = QMenu(self)
+
+		remove_selection = menu.addAction("Remove selected row(s)")
+		display_log = menu.addAction("Preview reconstruction log")
+
+		action = menu.exec_(QtGui.QCursor.pos())
+		if action == remove_selection:
+			print("remove")
+		elif action == display_log:
+			print("display")
 
 	def ok_pushed(self):
 		unformatted_content = self.ui.history_textEdit.toPlainText()
