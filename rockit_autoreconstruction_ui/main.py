@@ -54,12 +54,38 @@ class MainWindow(QMainWindow):
         self.initialize_widgets()
 
     def initialize_widgets(self):
+        self.ui.activate_auto_reconstruction_checkBox.setChecked(self.autoreduction_mode)
+        self.activate_auto_reconstruction_clicked()
+
         self.ui.ipts_spinBox.setValue(int(self.ipts))
 
-        if self.xmin != "None": self.ui.xmin_spinBox.setValue(self.xmin)
-        if self.ymin != "None": self.ui.ymin_spinBox.setValue(self.ymin)
-        if self.xmax != "None": self.ui.xmax_spinBox.setValue(self.xmax)
-        if self.ymax != "None": self.ui.ymax_spinBox.setValue(self.ymax)
+        if self.xmin:
+            self.ui.xmin_spinBox.setValue(self.xmin)
+            self.ui.xmin_checkBox.setChecked(True)
+        else:
+            self.ui.xmin_checkBox.setChecked(False)
+        self.crop_xmin_checkbox_update()
+
+        if self.ymin:
+            self.ui.ymin_spinBox.setValue(self.ymin)
+            self.ui.ymin_checkBox.setChecked(True)
+        else:
+            self.ui.ymin_checkBox.setChecked(False)
+        self.crop_ymin_checkbox_update()
+
+        if self.xmax:
+            self.ui.xmax_spinBox.setValue(self.xmax)
+            self.ui.xmax_checkBox.setChecked(True)
+        else:
+            self.ui.xmax_checkBox.setChecked(False)
+        self.crop_xmax_checkbox_update()
+
+        if self.ymax:
+            self.ui.ymax_spinBox.setValue(self.ymax)
+            self.ui.ymax_checkBox.setChecked(True)
+        else:
+            self.ui.ymax_checkBox.setChecked(False)
+        self.crop_ymax_checkbox_update()
 
     def read_yaml(self):
         file_name = self.autoreduce_config_file
@@ -71,7 +97,12 @@ class MainWindow(QMainWindow):
         except KeyError:
             self.ipts = 23788
 
-        checked_crop_roi_checkbox = True
+        try:
+            self.crop_roi_mode = yaml_data['ROI']['mode']
+        except KeyError:
+            self.crop_roi_mode = False
+
+        checked_crop_roi_checkbox = self.crop_roi_mode
         try:
             self.xmin = yaml_data['ROI']['xmin']
         except KeyError:
@@ -143,15 +174,60 @@ class MainWindow(QMainWindow):
     def crop_roi_checkBox_changed(self):
         status = self.ui.crop_roi_checkBox.isChecked()
         self.ui.crop_roi_groupBox.setEnabled(status)
+        self.ui.ymax_checkBox.setEnabled(status)
+        self.ui.ymin_checkBox.setEnabled(status)
+        self.ui.xmin_checkBox.setEnabled(status)
+        self.ui.xmax_checkBox.setEnabled(status)
+
+    def crop_xmin_checkbox_update(self):
+        self.crop_xmin_checkBox_changed(self.ui.xmin_checkBox.isChecked())
+
+    def crop_xmin_checkBox_changed(self, state):
+        self.ui.xmin_spinBox.setEnabled(state)
+
+    def crop_xmax_checkbox_update(self):
+        self.crop_xmax_checkBox_changed(self.ui.xmax_checkBox.isChecked())
+
+    def crop_xmax_checkBox_changed(self, state):
+        self.ui.xmax_spinBox.setEnabled(state)
+
+    def crop_ymin_checkbox_update(self):
+        self.crop_ymin_checkBox_changed(self.ui.ymin_checkBox.isChecked())
+
+    def crop_ymin_checkBox_changed(self, state):
+        self.ui.ymin_spinBox.setEnabled(state)
+
+    def crop_ymax_checkbox_update(self):
+        self.crop_ymax_checkBox_changed(self.ui.ymax_checkBox.isChecked())
+
+    def crop_ymax_checkBox_changed(self, state):
+        self.ui.ymax_spinBox.setEnabled(state)
 
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
 
-        if self.ui.crop_roi_checkBox.isChecked():
-            xmin = self.ui.xmin_spinBox.value()
-            ymin = self.ui.ymin_spinBox.value()
-            xmax = self.ui.xmax_spinBox.value()
-            ymax = self.ui.ymax_spinBox.value()
+        crop_roi_mode = self.ui.crop_roi_checkBox.isChecked()
+        if crop_roi_mode:
+
+            if self.ui.xmin_checkBox.isChecked():
+                xmin = self.ui.xmin_spinBox.value()
+            else:
+                xmin = None
+
+            if self.ui.ymin_checkBox.isChecked():
+                ymin = self.ui.ymin_spinBox.value()
+            else:
+                ymin = None
+
+            if self.ui.xmax_checkBox.isChecked():
+                xmax = self.ui.xmax_spinBox.value()
+            else:
+                xmax = None
+
+            if self.ui.ymax_checkBox.isChecked():
+                ymax = self.ui.ymax_spinBox.value()
+            else:
+                ymax = None
 
         else:
             xmin = None
@@ -165,6 +241,7 @@ class MainWindow(QMainWindow):
                          {'ipts': ipts_number,
                           },
                      'ROI': {
+                         'mode': crop_roi_mode,
                          'xmin': xmin,
                          'ymin': ymin,
                          'xmax': xmax,

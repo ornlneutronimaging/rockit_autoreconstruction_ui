@@ -138,9 +138,15 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QCheckBox" name="ymin_checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>ymin:</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -182,9 +188,15 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QCheckBox" name="xmin_checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>xmin:</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -239,9 +251,15 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QCheckBox" name="xmax_checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>xmax:</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -283,9 +301,15 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QCheckBox" name="ymax_checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>ymax:</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -525,6 +549,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ymin_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crop_ymin_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>361</x>
+     <y>235</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>415</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xmax_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crop_xmax_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>546</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>788</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ymax_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crop_ymax_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>356</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>604</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xmin_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crop_xmin_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>205</x>
+     <y>488</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
@@ -533,5 +621,9 @@
   <slot>reset_history_clicked()</slot>
   <slot>ipts_value_changed()</slot>
   <slot>crop_roi_checkBox_changed()</slot>
+  <slot>crop_ymin_checkBox_changed()</slot>
+  <slot>crop_ymax_checkBox_changed()</slot>
+  <slot>crop_xmin_checkBox_changed()</slot>
+  <slot>crop_xmax_checkBox_changed()</slot>
  </slots>
 </ui>
