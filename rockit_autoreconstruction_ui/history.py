@@ -23,7 +23,8 @@ class History(QDialog):
 		self.ui = load_ui(ui_full_path, baseinstance=self)
 		self.setWindowTitle(f"History of {self.parent.ipts} ct_scans folders reduced!")
 
-		history_file = self.parent.ipts_folder + os.path.join(f"IPTS-{self.parent.ipts}/shared/autoreduce/ct_scans_folder_processed.json")
+		self.autoreduce_path = self.parent.ipts_folder + os.path.join(f"IPTS-{self.parent.ipts}/shared/autoreduce/")
+		history_file = self.autoreduce_path + "ct_scans_folder_processed.json"
 		self.history_file = history_file
 		if os.path.exists(history_file):
 			with open(history_file, 'r') as json_file:
@@ -55,15 +56,17 @@ class History(QDialog):
 				o_table.remove_row(_row)
 
 		elif action == display_log:
-			pass
-			# for _row in selected_rows:
-			#
-			# 	# figure out log file name
-			#
-			#
-			# 	o_display = DisplayLog(parent=self.parent,
-			# 						   log_file_name=log_file_name)
-			# 	o_display.show()
+
+			for _row in selected_rows:
+
+				# figure out log file name
+				folder_name = o_table.get_item_str_from_cell(row=_row, column=0)
+				base_folder_name = os.path.basename(folder_name) + "_autoreduce.log"
+				log_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), base_folder_name)
+
+				o_display = DisplayLog(parent=self,
+									   log_file_name=log_file_name)
+				o_display.show()
 
 	def ok_pushed(self):
 		unformatted_content = self.ui.history_textEdit.toPlainText()
