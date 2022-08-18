@@ -29,7 +29,7 @@ class History(QDialog):
 			self.ui.history_textEdit.setPlainText(list_folders_formatted)
 
 		else:
-			self.ui.history_textEdit.setText("file does not exists!")
+			self.ui.history_textEdit.setPlainText("file does not exists yet!")
 
 	def ok_pushed(self):
 		unformatted_content = self.ui.history_textEdit.toPlainText()
