@@ -22,7 +22,9 @@ class DisplayLog(QDialog):
 
 		if os.path.exists(log_file_name):
 			log_text = self.read_ascii(log_file_name)
-			self.ui.log_textEdit.setText(log_text)
+		else:
+			log_text = "File is missing!"
+		self.ui.log_textEdit.setText(log_text)
 
 	def ok_pushed(self):
 		self.close()

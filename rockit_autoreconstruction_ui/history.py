@@ -43,8 +43,9 @@ class History(QDialog):
 	def history_right_click(self, point):
 		menu = QMenu(self)
 
+		display_log = menu.addAction("Preview reconstruction log ...")
+		menu.addSeparator()
 		remove_selection = menu.addAction("Remove selected row(s)")
-		display_log = menu.addAction("Preview reconstruction log")
 
 		action = menu.exec_(QtGui.QCursor.pos())
 
