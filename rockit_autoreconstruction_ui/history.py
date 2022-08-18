@@ -5,7 +5,8 @@ import os
 import json
 
 from . import load_ui
-from utilities.table_handler import TableHandler
+from .utilities.table_handler import TableHandler
+from .display_log import DisplayLog
 
 
 class History(QDialog):
@@ -28,11 +29,15 @@ class History(QDialog):
 			with open(history_file, 'r') as json_file:
 				history_data = json.load(json_file)
 			list_folders = history_data['list_folders']
-			list_folders_formatted = "\n".join(list_folders)
-			self.ui.history_textEdit.setPlainText(list_folders_formatted)
-
+			o_table = TableHandler(table_ui=self.ui.history_tableWidget)
+			for _row, _folder in enumerate(list_folders):
+				o_table.insert_empty_row(row=_row)
+				o_table.insert_item(row=_row,
+									column=0,
+									editable=False,
+									value=_folder)
 		else:
-			self.ui.history_textEdit.setPlainText("file does not exists yet!")
+			self.ui.error_label.setText("file does not exists yet!")
 
 	def history_right_click(self, point):
 		menu = QMenu(self)
@@ -43,7 +48,7 @@ class History(QDialog):
 		action = menu.exec_(QtGui.QCursor.pos())
 
 		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
-		selected_rows = o_table.get_row_selected()
+		selected_rows = o_table.get_rows_of_table_selected()
 
 		if action == remove_selection:
 			for _row in selected_rows[::-1]:
@@ -51,6 +56,14 @@ class History(QDialog):
 
 		elif action == display_log:
 			pass
+			# for _row in selected_rows:
+			#
+			# 	# figure out log file name
+			#
+			#
+			# 	o_display = DisplayLog(parent=self.parent,
+			# 						   log_file_name=log_file_name)
+			# 	o_display.show()
 
 	def ok_pushed(self):
 		unformatted_content = self.ui.history_textEdit.toPlainText()

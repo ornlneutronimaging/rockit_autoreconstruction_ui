@@ -3,8 +3,6 @@ from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
 from qtpy.QtWidgets import QApplication, QSpacerItem, QSizePolicy, QWidget, QHBoxLayout
 
-from .widgets_handler import WidgetsHandler
-
 
 class TableHandler:
     cell_str_format = "{:.3f}"
@@ -199,7 +197,11 @@ class TableHandler:
         _item = QTableWidgetItem(_str_value)
         self.table_ui.setItem(row, column, _item)
 
-    def insert_item(self, row=0, column=0, value="", format_str="{}", editable=True, align_center=False):
+    def insert_item(self, row=0, column=0,
+                    value="",
+                    format_str="{}",
+                    editable=True,
+                    align_center=False):
         _str_value = format_str.format(value)
         _item = QTableWidgetItem(_str_value)
         if not editable:
@@ -233,36 +235,7 @@ class TableHandler:
                                       column=_col,
                                       qcolor=qcolor)
 
-    def fill_table_with(self, list_items=None, editable_columns_boolean=None, block_signal=False):
-        """
-        :param:
-        list_items: 2D array of text to put in the table
-            ex: list_items = [ ['file1', 10, 20'], ['file2', 20, 30] ...]
-        editable_columns_boolean: which columns are editable
-            ex: editable_columns_boolean = [False, True, True]
-        block_signals: block or not any signal emitted by the table
-        """
-        if block_signal:
-            WidgetsHandler.block_signals(ui=self.table_ui,
-                                         status=True)
 
-        self.remove_all_rows()
-
-        for _row_index, _row_entry in enumerate(list_items):
-            self.insert_empty_row(_row_index)
-            for _column_index, _text in enumerate(list_items[_row_index]):
-                if _row_index == 0:
-                    editable_flag = False
-                else:
-                    editable_flag = editable_columns_boolean[_column_index]
-                self.insert_item(row=_row_index,
-                                 column=_column_index,
-                                 value=_text,
-                                 editable=editable_flag)
-
-        if block_signal:
-            WidgetsHandler.block_signals(ui=self.table_ui,
-                                         status=False)
 
     def block_signals(self, state=True):
         self.table_ui.blockSignals(state)
