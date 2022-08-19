@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>794</width>
-    <height>661</height>
+    <width>851</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -351,6 +351,150 @@
          </layout>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="ob_checkBox">
+         <property name="text">
+          <string>Automatic Open Beam (OB) file selection constraints</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="ob_groupBox">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Only keep OBs that are within the following constraints</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="maximum_number_of_ob_radioButton">
+            <property name="text">
+             <string>maximum number of OBs</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="maximum_time_ob_radioButton">
+            <property name="text">
+             <string>maximum different between sample and OB time acquisition</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <spacer name="horizontalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="ob_days_spinBox">
+              <property name="maximum">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="ob_days_label">
+              <property name="text">
+               <string>days</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="ob_hours_spinBox">
+              <property name="maximum">
+               <number>23</number>
+              </property>
+              <property name="value">
+               <number>3</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="ob_hours_label">
+              <property name="text">
+               <string>hours</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="ob_minutes_spinBox">
+              <property name="maximum">
+               <number>59</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="ob_minutes_label">
+              <property name="text">
+               <string>minutes</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_12">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -405,7 +549,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>794</width>
+     <width>851</width>
      <height>24</height>
     </rect>
    </property>
@@ -460,8 +604,8 @@
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>781</x>
-     <y>627</y>
+     <x>838</x>
+     <y>710</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
@@ -477,7 +621,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>73</x>
-     <y>627</y>
+     <y>710</y>
     </hint>
     <hint type="destinationlabel">
      <x>127</x>
@@ -556,7 +700,7 @@
    <slot>crop_ymin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>361</x>
+     <x>390</x>
      <y>235</y>
     </hint>
     <hint type="destinationlabel">
@@ -572,7 +716,7 @@
    <slot>crop_xmax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
+     <x>575</x>
      <y>281</y>
     </hint>
     <hint type="destinationlabel">
@@ -588,7 +732,7 @@
    <slot>crop_ymax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>343</x>
+     <x>372</x>
      <y>356</y>
     </hint>
     <hint type="destinationlabel">
@@ -604,12 +748,60 @@
    <slot>crop_xmin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
+     <x>253</x>
      <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
      <y>488</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ob_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>automatic_open_beam_checkBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>524</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maximum_number_of_ob_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ob_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>191</x>
+     <y>478</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>57</x>
+     <y>603</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maximum_time_ob_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ob_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>498</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>97</x>
+     <y>613</y>
     </hint>
    </hints>
   </connection>
@@ -625,5 +817,7 @@
   <slot>crop_ymax_checkBox_changed()</slot>
   <slot>crop_xmin_checkBox_changed()</slot>
   <slot>crop_xmax_checkBox_changed()</slot>
+  <slot>automatic_open_beam_checkBox_changed()</slot>
+  <slot>ob_radioButton_changed()</slot>
  </slots>
 </ui>

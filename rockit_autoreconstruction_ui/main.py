@@ -54,6 +54,7 @@ class MainWindow(QMainWindow):
         self.initialize_widgets()
 
     def initialize_widgets(self):
+
         self.ui.activate_auto_reconstruction_checkBox.setChecked(self.autoreduction_mode)
         self.activate_auto_reconstruction_clicked()
 
@@ -86,6 +87,15 @@ class MainWindow(QMainWindow):
         else:
             self.ui.ymax_checkBox.setChecked(False)
         self.crop_ymax_checkbox_update()
+
+        self.ui.ob_checkBox.setChecked(self.ob_auto_selection_mode)
+        self.ui.maximum_number_of_ob_radioButton.setChecked(self.ob_use_max_number_of_files)
+        self.ui.ob_days_spinBox.setValue(self.ob_days)
+        self.ui.ob_hours_spinBox.setValue(self.ob_hours)
+        self.ui.ob_minutes_spinBox.setValue(self.ob_minutes)
+
+        self.automatic_open_beam_checkBox_changed(self.ui.ob_checkBox.isChecked())
+        self.ob_radioButton_changed()
 
     def read_yaml(self):
         file_name = self.autoreduce_config_file
@@ -134,6 +144,36 @@ class MainWindow(QMainWindow):
 
         self.ui.crop_roi_checkBox.setChecked(checked_crop_roi_checkbox)
         self.crop_roi_checkBox_changed()
+
+        try:
+            self.ob_auto_selection_mode = yaml_data['OB_auto_selection']['mode']
+        except KeyError:
+            self.ob_auto_selection_mode = True
+
+        try:
+            self.ob_days = yaml_data['OB_auto_selection']['days']
+        except KeyError:
+            self.ob_days = 0
+
+        try:
+            self.ob_hours = yaml_data['OB_auto_selection']['hours']
+        except KeyError:
+            self.ob_hours = 3
+
+        try:
+            self.ob_minutes = yaml_data['OB_auto_selection']['minutes']
+        except KeyError:
+            self.ob_minutes = 0
+
+        try:
+            self.ob_max_number_of_files = yaml_data['ob_auto_selection']['max_number_of_files']
+        except KeyError:
+            self.ob_max_number_of_files = 10
+
+        try:
+            self.ob_use_max_number_of_files = yaml_data['ob_auto_selection']['use_max_number_of_files']
+        except KeyError:
+            self.ob_use_max_number_of_files = False
 
         return Status.ok
 
@@ -202,6 +242,20 @@ class MainWindow(QMainWindow):
 
     def crop_ymax_checkBox_changed(self, state):
         self.ui.ymax_spinBox.setEnabled(state)
+
+    def automatic_open_beam_checkBox_changed(self, state):
+        self.ui.ob_groupBox.setEnabled(state)
+
+    def ob_radioButton_changed(self):
+        state_ob_time = self.ui.maximum_time_ob_radioButton.isChecked()
+        list_ui = [self.ui.ob_days_spinBox,
+                   self.ui.ob_days_label,
+                   self.ui.ob_hours_spinBox,
+                   self.ui.ob_hours_label,
+                   self.ui.ob_minutes_spinBox,
+                   self.ui.ob_minutes_label]
+        for _ui in list_ui:
+            _ui.setEnabled(state_ob_time)
 
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
