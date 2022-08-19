@@ -90,6 +90,7 @@ class MainWindow(QMainWindow):
 
         self.ui.ob_checkBox.setChecked(self.ob_auto_selection_mode)
         self.ui.maximum_number_of_ob_radioButton.setChecked(self.ob_use_max_number_of_files)
+        self.ui.maximum_number_of_ob_spinBox.setValue(self.ob_max_number_of_files)
         self.ui.ob_days_spinBox.setValue(self.ob_days)
         self.ui.ob_hours_spinBox.setValue(self.ob_hours)
         self.ui.ob_minutes_spinBox.setValue(self.ob_minutes)
@@ -256,6 +257,7 @@ class MainWindow(QMainWindow):
                    self.ui.ob_minutes_label]
         for _ui in list_ui:
             _ui.setEnabled(state_ob_time)
+        self.ui.maximum_number_of_ob_spinBox.setEnabled(not state_ob_time)
 
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
@@ -291,6 +293,13 @@ class MainWindow(QMainWindow):
 
         autoreduction_mode = self.ui.activate_auto_reconstruction_checkBox.isChecked()
 
+        ob_auto_selection_mode = self.ui.ob_checkBox.isChecked()
+        ob_days = self.ui.ob_days_spinBox.value()
+        ob_hours = self.ui.ob_hours_spinBox.value()
+        ob_minutes = self.ui.ob_minutes_spinBox.value()
+        ob_max_number_of_files = self.ui.maximum_number_of_ob_spinBox.value()
+        ob_use_max_number_of_files = self.ui.maximum_number_of_ob_radioButton.isChecked()
+
         yaml_data = {'DataPath':
                          {'ipts': ipts_number,
                           },
@@ -302,6 +311,14 @@ class MainWindow(QMainWindow):
                          'ymax': ymax,
                             },
                      'autoreduction': autoreduction_mode,
+                     'ob_auto_selection': {
+                         'mode': ob_auto_selection_mode,
+                         'days': ob_days,
+                         'minutes': ob_minutes,
+                         'hours': ob_hours,
+                         'max_number_of_files': ob_max_number_of_files,
+                         'use_max_number_of_files': ob_use_max_number_of_files,
+                         },
                      }
         with io.open(self.autoreduce_config_file, 'w') as outfile:
             yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)
