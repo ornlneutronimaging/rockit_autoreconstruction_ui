@@ -235,8 +235,6 @@ class TableHandler:
                                       column=_col,
                                       qcolor=qcolor)
 
-
-
     def block_signals(self, state=True):
         self.table_ui.blockSignals(state)
         QApplication.processEvents()

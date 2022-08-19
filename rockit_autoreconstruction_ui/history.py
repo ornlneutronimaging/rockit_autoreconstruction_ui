@@ -1,6 +1,6 @@
 from qtpy.QtWidgets import QDialog, QMenu
 from qtpy import QtGui
-
+import numpy as np
 import os
 import json
 
@@ -70,11 +70,13 @@ class History(QDialog):
 				o_display.show()
 
 	def ok_pushed(self):
-		unformatted_content = self.ui.history_textEdit.toPlainText()
-		formatted_content = unformatted_content.split("\n")
-		# remove empty row and duplicates
-		formatted_content = list(set([_entry for _entry in formatted_content if _entry != ""]))
-		dict = {'list_folders': formatted_content}
+		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
+		nbr_row = o_table.row_count()
+		table_content = []
+		for _row in np.arange(nbr_row):
+			cell_str = o_table.get_item_str_from_cell(row=_row, column=0)
+			table_content.append(cell_str)
+		dict = {'list_folders': table_content}
 		with open(self.history_file, 'w') as json_file:
 			json.dump(dict, json_file)
 
