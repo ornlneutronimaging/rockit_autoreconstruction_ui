@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
+import numpy as np
 import os
-import logging
 import warnings
 from enum import Enum
 import yaml
@@ -14,7 +14,7 @@ from . import __version__
 from .utilities.status_message_config import StatusMessageStatus, show_status_message
 from .history import History
 
-DEBUG = False
+DEBUG = True
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
 
 
@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         if status == Status.error:
             return
 
-        status = self.read_yaml()
+        status = self.read_yaml_and_set_widgets()
         if status == Status.error:
             return
 
@@ -98,7 +98,13 @@ class MainWindow(QMainWindow):
         self.automatic_open_beam_checkBox_changed(self.ui.ob_checkBox.isChecked())
         self.ob_radioButton_changed()
 
-    def read_yaml(self):
+        # ring removal algorithm
+        self.ui.ring_removal_algorithm_comboBox.addItems(self.removal_ring_list_algorithm)
+        self.ui.ring_removal_algorithm_comboBox.setCurrentIndex(self.removal_ring_algorithm_current_index)
+        self.ui.ring_removal_algorithm_checkBox.setChecked(self.removal_ring_mode)
+        self.ring_removal_algorithm_checkBox_changed(self.removal_ring_mode)
+
+    def read_yaml_and_set_widgets(self):
         file_name = self.autoreduce_config_file
         with open(file_name, "r") as stream:
             yaml_data = yaml.safe_load(stream)
@@ -181,6 +187,24 @@ class MainWindow(QMainWindow):
             self.automatic_edge_cropping = yaml_data['edge_cropping']['automatic']
         except KeyError:
             self.automatic_edge_cropping = True
+
+        # removal ring artifact algorithms
+        try:
+            self.removal_ring_list_algorithm = yaml_data['ring_removal']['list_algorithm']
+        except KeyError:
+            self.removal_ring_list_algorithm = ["Vos", "bm3d"]
+
+        try:
+            self.removal_ring_mode = yaml_data['ring_removal']['mode']
+        except KeyError:
+            self.removal_ring_mode = True
+
+        try:
+            self.removal_ring_algorithm = yaml_data['ring_removal']['algorithm']
+        except KeyError:
+            self.removal_ring_algorithm = "Vos"
+
+        self.removal_ring_algorithm_current_index = self.removal_ring_list_algorithm.index(self.removal_ring_algorithm)
 
         return Status.ok
 
@@ -309,6 +333,12 @@ class MainWindow(QMainWindow):
         ob_max_number_of_files = self.ui.maximum_number_of_ob_spinBox.value()
         ob_use_max_number_of_files = self.ui.maximum_number_of_ob_radioButton.isChecked()
         automatic_edge_cropping = self.ui.automatic_edge_cropping_checkBox.isChecked()
+        ring_removal_flag = self.ui.ring_removal_algorithm_checkBox.isChecked()
+        ring_removal_algorithm = self.ui.ring_removal_algorithm_comboBox.currentText()
+
+        ring_removal_list_algorithm = []
+        for _row in np.arange(self.ui.ring_removal_algorithm_comboBox.count()):
+            ring_removal_list_algorithm.append(self.ui.ring_removal_algorithm_comboBox.itemText(_row))
 
         yaml_data = {'DataPath':
                          {'ipts': ipts_number,
@@ -331,7 +361,12 @@ class MainWindow(QMainWindow):
                          },
                      'edge_cropping': {
                          'automatic': automatic_edge_cropping,
-                     }
+                                      },
+                     'ring_removal': {
+                         'mode': ring_removal_flag,
+                         'algorithm': ring_removal_algorithm,
+                         'list_algorithm': ring_removal_list_algorithm,
+                                    },
                      }
         with io.open(self.autoreduce_config_file, 'w') as outfile:
             yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)

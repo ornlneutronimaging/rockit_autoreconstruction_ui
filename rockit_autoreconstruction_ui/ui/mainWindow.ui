@@ -563,18 +563,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="ring_removal_algorithm_comboBox">
-           <item>
-            <property name="text">
-             <string>Vo's</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>bm3d</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="QComboBox" name="ring_removal_algorithm_comboBox"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_14">
