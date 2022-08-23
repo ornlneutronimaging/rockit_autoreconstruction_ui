@@ -176,6 +176,12 @@ class MainWindow(QMainWindow):
         except KeyError:
             self.ob_use_max_number_of_files = False
 
+        # automatic edge cropping
+        try:
+            self.automatic_edge_cropping = yaml_data['edge_cropping']['automatic']
+        except KeyError:
+            self.automatic_edge_cropping = True
+
         return Status.ok
 
     def initialize_statusbar(self):
@@ -259,6 +265,9 @@ class MainWindow(QMainWindow):
             _ui.setEnabled(state_ob_time)
         self.ui.maximum_number_of_ob_spinBox.setEnabled(not state_ob_time)
 
+    def ring_removal_algorithm_checkBox_changed(self, state):
+        self.ui.ring_removal_algorithm_comboBox.setEnabled(state)
+
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
 
@@ -299,6 +308,7 @@ class MainWindow(QMainWindow):
         ob_minutes = self.ui.ob_minutes_spinBox.value()
         ob_max_number_of_files = self.ui.maximum_number_of_ob_spinBox.value()
         ob_use_max_number_of_files = self.ui.maximum_number_of_ob_radioButton.isChecked()
+        automatic_edge_cropping = self.ui.automatic_edge_cropping_checkBox.isChecked()
 
         yaml_data = {'DataPath':
                          {'ipts': ipts_number,
@@ -319,6 +329,9 @@ class MainWindow(QMainWindow):
                          'max_number_of_files': ob_max_number_of_files,
                          'use_max_number_of_files': ob_use_max_number_of_files,
                          },
+                     'edge_cropping': {
+                         'automatic': automatic_edge_cropping,
+                     }
                      }
         with io.open(self.autoreduce_config_file, 'w') as outfile:
             yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)
