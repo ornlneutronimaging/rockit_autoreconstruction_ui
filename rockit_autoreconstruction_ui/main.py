@@ -14,7 +14,7 @@ from . import __version__
 from .utilities.status_message_config import StatusMessageStatus, show_status_message
 from .history import History
 
-DEBUG = True
+DEBUG = False
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
 
 
