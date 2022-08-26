@@ -125,7 +125,7 @@
    <sender>refresh_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>refresh_pressButton_pressed()</slot>
+   <slot>refresh_pushButton_pressed()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>628</x>
@@ -141,6 +141,6 @@
  <slots>
   <slot>ok_pushed()</slot>
   <slot>clear_pushed()</slot>
-  <slot>refresh_pressButton_pressed()</slot>
+  <slot>refresh_pushButton_pressed()</slot>
  </slots>
 </ui>
