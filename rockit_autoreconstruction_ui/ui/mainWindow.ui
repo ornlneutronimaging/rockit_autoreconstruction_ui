@@ -682,6 +682,9 @@
    <property name="text">
     <string>Display ...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
   </action>
  </widget>
  <resources/>

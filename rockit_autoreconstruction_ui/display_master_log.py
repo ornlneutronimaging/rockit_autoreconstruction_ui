@@ -33,7 +33,9 @@ class DisplayMasterLog(QDialog):
 		self.close()
 
 	def clear_pushed(self):
-		os.remove(self.log_file_name)
+		if os.path.exists(self.log_file_name):
+			os.remove(self.log_file_name)
+		self.update_display_text()
 
 	def update_display_text(self):
 		if os.path.exists(self.log_file_name):
