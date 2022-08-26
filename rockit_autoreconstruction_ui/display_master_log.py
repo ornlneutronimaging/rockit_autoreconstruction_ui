@@ -1,8 +1,10 @@
 from qtpy.QtWidgets import QDialog
+from qtpy import QtGui
 
 import os
 
 from . import load_ui
+from . import refresh_file
 
 
 class DisplayMasterLog(QDialog):
@@ -19,6 +21,12 @@ class DisplayMasterLog(QDialog):
 												 'display_master_log.ui'))
 		self.ui = load_ui(ui_full_path, baseinstance=self)
 		self.ui.file_label.setText(self.log_file_name)
+		self.update_display_text()
+
+		icon_refresh = QtGui.QIcon(refresh_file)
+		self.ui.refresh_pushButton.setIcon(icon_refresh)
+
+	def refresh_pushButton_pressed(self):
 		self.update_display_text()
 
 	def ok_pushed(self):
