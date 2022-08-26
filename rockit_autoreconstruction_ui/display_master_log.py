@@ -19,19 +19,20 @@ class DisplayMasterLog(QDialog):
 												 'display_master_log.ui'))
 		self.ui = load_ui(ui_full_path, baseinstance=self)
 		self.ui.file_label.setText(self.log_file_name)
-
-		if os.path.exists(self.log_file_name):
-			log_text = self.read_ascii(self.log_file_name)
-		else:
-			log_text = "File is missing!"
-		self.ui.log_textEdit.setText(log_text)
+		self.update_display_text()
 
 	def ok_pushed(self):
 		self.close()
 
 	def clear_pushed(self):
-		with open(self.log_file_name, 'w') as f:
-			f.write("")
+		os.remove(self.log_file_name)
+
+	def update_display_text(self):
+		if os.path.exists(self.log_file_name):
+			log_text = self.read_ascii(self.log_file_name)
+		else:
+			log_text = "File is missing!"
+		self.ui.log_textEdit.setText(log_text)
 
 	def read_ascii(self, filename=''):
 		"""return contain of an ascii file"""
