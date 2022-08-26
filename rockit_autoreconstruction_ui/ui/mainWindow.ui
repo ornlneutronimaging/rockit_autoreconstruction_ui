@@ -645,6 +645,13 @@
      <height>37</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuLog">
+    <property name="title">
+     <string>Log</string>
+    </property>
+    <addaction name="actionDisplay"/>
+   </widget>
+   <addaction name="menuLog"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad">
@@ -669,6 +676,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionDisplay">
+   <property name="text">
+    <string>Display ...</string>
    </property>
   </action>
  </widget>
@@ -898,6 +910,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDisplay</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>display_log_triggered()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
@@ -913,5 +941,6 @@
   <slot>automatic_open_beam_checkBox_changed()</slot>
   <slot>ob_radioButton_changed()</slot>
   <slot>ring_removal_algorithm_checkBox_changed()</slot>
+  <slot>display_log_triggered()</slot>
  </slots>
 </ui>

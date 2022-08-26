@@ -13,6 +13,7 @@ from . import load_ui
 from . import __version__
 from .utilities.status_message_config import StatusMessageStatus, show_status_message
 from .history import History
+from .display_master_log import DisplayMasterLog
 
 DEBUG = False
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
@@ -231,6 +232,10 @@ class MainWindow(QMainWindow):
             return Status.error
 
     # event handler
+    def display_log_triggered(self):
+        o_display_log = DisplayMasterLog(parent=self)
+        o_display_log.show()
+
     def ipts_value_changed(self, value):
         self.ipts_number = self.ui.ipts_spinBox.value()
 
