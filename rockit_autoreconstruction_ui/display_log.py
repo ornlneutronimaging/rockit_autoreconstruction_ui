@@ -36,6 +36,8 @@ class DisplayLog(QDialog):
 		else:
 			log_text = "File is missing!"
 		self.ui.log_textEdit.setText(log_text)
+		# move anchor to bottom of the text
+		self.ui.log_textEdit.moveCursor(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
 
 	def ok_pushed(self):
 		self.close()
