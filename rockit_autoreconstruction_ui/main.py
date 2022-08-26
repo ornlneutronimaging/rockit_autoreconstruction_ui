@@ -15,7 +15,7 @@ from .utilities.status_message_config import StatusMessageStatus, show_status_me
 from .history import History
 from .display_master_log import DisplayMasterLog
 
-DEBUG = True
+DEBUG = False
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
 
 
