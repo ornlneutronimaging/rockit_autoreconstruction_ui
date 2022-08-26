@@ -36,6 +36,25 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="refresh_pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>30</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -85,8 +104,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>refresh_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>refresh_pushButton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>627</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>495</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_pushed()</slot>
+  <slot>refresh_pushButton_pressed()</slot>
  </slots>
 </ui>
