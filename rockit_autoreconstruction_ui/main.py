@@ -290,7 +290,9 @@ class MainWindow(QMainWindow):
         self.ui.maximum_number_of_ob_spinBox.setEnabled(not state_ob_time)
 
     def ring_removal_algorithm_checkBox_changed(self, state):
-        self.ui.ring_removal_algorithm_comboBox.setEnabled(state)
+        # NOT IMPLEMENTED YET
+        # self.ui.ring_removal_algorithm_comboBox.setEnabled(state)
+        self.ui.ring_removal_algorithm_comboBox.setEnabled(False)
 
     def ok_clicked(self):
         ipts_number = self.ui.ipts_spinBox.value()
