@@ -5,6 +5,7 @@ import os
 
 from . import load_ui
 from . import refresh_file
+from .utilities.file import read_ascii
 
 
 class DisplayLog(QDialog):
@@ -32,7 +33,7 @@ class DisplayLog(QDialog):
 
 	def update_display_text(self):
 		if os.path.exists(self.log_file_name):
-			log_text = self.read_ascii(self.log_file_name)
+			log_text = read_ascii(self.log_file_name)
 		else:
 			log_text = "File is missing!"
 		self.ui.log_textEdit.setText(log_text)
@@ -41,9 +42,3 @@ class DisplayLog(QDialog):
 
 	def ok_pushed(self):
 		self.close()
-
-	def read_ascii(self, filename=''):
-		'''return contain of an ascii file'''
-		with open(filename, 'r') as f:
-			text = f.read()
-		return text
