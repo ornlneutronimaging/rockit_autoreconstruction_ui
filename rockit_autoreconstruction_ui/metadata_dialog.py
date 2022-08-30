@@ -151,5 +151,33 @@ class MetadataDialog(QDialog):
 								 value=dc_dict[_key]['value'])
 			_row_index += 1
 
+	def sample_selection_changed(self):
+		self.table_selection_changed(source='sample')
+
+	def ob_selection_changed(self):
+		self.table_selection_changed(source='ob')
+
+	def dc_selection_changed(self):
+		self.table_selection_changed(source='dc')
+
+	def table_selection_changed(self, source='sample'):
+		list_table_ui = list([self.ui.sample_tableWidget, self.ui.ob_tableWidget, self.ui.dc_tableWidget])
+		if source == 'sample':
+			index_to_pop = 0
+		elif source == 'ob':
+			index_to_pop = 1
+		else:
+			index_to_pop = 2
+		source_table_ui = list_table_ui.pop(index_to_pop)
+
+		o_source = TableHandler(table_ui=source_table_ui)
+		selected_row = o_source.get_row_selected()
+
+		for _table_ui in list_table_ui:
+			o_table = TableHandler(table_ui=_table_ui)
+			o_table.block_signals(True)
+			o_table.select_row(row=selected_row)
+			o_table.block_signals(False)
+
 	def ok_pushed(self):
 		self.close()

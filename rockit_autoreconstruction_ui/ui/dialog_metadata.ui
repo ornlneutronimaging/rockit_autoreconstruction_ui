@@ -107,6 +107,12 @@
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <attribute name="horizontalHeaderVisible">
          <bool>true</bool>
         </attribute>
@@ -144,6 +150,12 @@
        <widget class="QTableWidget" name="ob_tableWidget">
         <property name="alternatingRowColors">
          <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
@@ -183,6 +195,12 @@
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
         </attribute>
@@ -202,6 +220,13 @@
           <string>Value</string>
          </property>
         </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>For DC, only Exposure time and Detector Manufacturer are considered when looking for matches. </string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -283,9 +308,60 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>sample_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>Dialog</receiver>
+   <slot>sample_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>841</x>
+     <y>172</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1158</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ob_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>Dialog</receiver>
+   <slot>ob_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>933</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1160</x>
+     <y>508</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dc_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>Dialog</receiver>
+   <slot>dc_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>990</x>
+     <y>636</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1158</x>
+     <y>718</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ob_index_changed()</slot>
   <slot>dc_index_changed()</slot>
+  <slot>sample_selection_changed()</slot>
+  <slot>ob_selection_changed()</slot>
+  <slot>dc_selection_changed()</slot>
  </slots>
 </ui>
