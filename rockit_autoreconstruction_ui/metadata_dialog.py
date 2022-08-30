@@ -28,9 +28,12 @@ class MetadataDialog(QDialog):
 		self.init_tables()
 
 		self.load_json()
+
 		self.init_ob_local_reference_dict()
 		self.init_ob_combobox()
 
+		self.init_dc_local_reference_dict()
+		self.init_dc_combobox()
 
 		self.fill_tables()
 
@@ -76,17 +79,27 @@ class MetadataDialog(QDialog):
 			_row_index += 1
 
 	def init_ob_local_reference_dict(self):
-		sample_dict = self.data['ob']
-		local_reference_dict = {}
-		for _key in sample_dict.keys():
-			local_reference_dict[sample_dict[_key]['filename']] = _key
+		self.ob_local_dict = self.get_local_reference_dict(key='ob')
 
-		self.ob_local_dict = local_reference_dict
+	def init_dc_local_reference_dict(self):
+		self.dc_local_dict = self.get_local_reference_dict(key='dc')
+
+	def get_local_reference_dict(self, key=None):
+		_dict = self.data[key]
+		local_reference_dict = {}
+		for _key in _dict.keys():
+			local_reference_dict[_dict[_key]['filename']] = _key
+		return local_reference_dict
 
 	def init_ob_combobox(self):
 		ob_local_reference_dict = self.ob_local_dict
 		list_files = list(ob_local_reference_dict.keys())
 		self.ui.ob_comboBox.addItems(list_files)
+
+	def init_dc_combobox(self):
+		dc_local_reference_dict = self.dc_local_dict
+		list_files = list(dc_local_reference_dict.keys())
+		self.ui.dc_comboBox.addItems(list_files)
 
 	def ob_index_changed(self, index):
 		combo_text = self.ui.ob_comboBox.currentText()
@@ -114,7 +127,29 @@ class MetadataDialog(QDialog):
 			_row_index += 1
 
 	def dc_index_changed(self, index):
-		pass
+		combo_text = self.ui.dc_comboBox.currentText()
+		metadata_index = self.dc_local_dict[combo_text]
+		dc_dict = self.data['dc'][metadata_index]
+		o_dc = TableHandler(table_ui=self.ui.dc_tableWidget)
+		o_dc.remove_all_rows()
+
+		_row_index = 0
+		for _key in dc_dict.keys():
+			if _key in LIST_KEYS_TO_IGNORE:
+				continue
+
+			o_dc.insert_empty_row(row=_row_index)
+
+			o_dc.insert_item(row=_row_index,
+								 column=0,
+								 editable=False,
+								 value=dc_dict[_key]['name'])
+
+			o_dc.insert_item(row=_row_index,
+								 column=1,
+								 editable=False,
+								 value=dc_dict[_key]['value'])
+			_row_index += 1
 
 	def ok_pushed(self):
 		self.close()
