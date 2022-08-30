@@ -63,6 +63,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
+      <widget class="QPushButton" name="preview_metadata_pushButton">
+       <property name="text">
+        <string>Preview metadata of files ...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -120,9 +127,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>preview_metadata_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>preview_metadata_pushButton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>963</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>964</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_pushed()</slot>
   <slot>refresh_pushButton_pressed()</slot>
+  <slot>preview_metadata_pushButton_pressed()</slot>
  </slots>
 </ui>

@@ -38,12 +38,13 @@ class History(QDialog):
 		column_sizes = [900, 50]
 		o_table.set_column_sizes(column_sizes=column_sizes)
 
-	def update_table(self):
 		self.autoreduce_path = self.parent.ipts_folder + os.path.join(f"IPTS-{self.parent.ipts}/shared/autoreduce/")
 		history_file = self.autoreduce_path + "ct_scans_folder_processed.json"
 		self.history_file = history_file
-		if os.path.exists(history_file):
-			with open(history_file, 'r') as json_file:
+
+	def update_table(self):
+		if os.path.exists(self.history_file):
+			with open(self.history_file, 'r') as json_file:
 				history_data = json.load(json_file)
 			list_folders = history_data['list_folders']
 			o_table = TableHandler(table_ui=self.ui.history_tableWidget)
@@ -103,10 +104,13 @@ class History(QDialog):
 				# figure out log file name
 				folder_name = o_table.get_item_str_from_cell(row=_row, column=0)
 				base_folder_name = os.path.basename(folder_name) + "_autoreduce.log"
+				metadata_name = os.path.basename(folder_name) + "_sample_ob_dc_metadata.json"
+				metadata_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), metadata_name)
 				log_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), base_folder_name)
 
 				o_display = DisplayLog(parent=self,
-									   log_file_name=log_file_name)
+									   log_file_name=log_file_name,
+									   metadata_file_name=metadata_file_name)
 				o_display.show()
 
 	def ok_pushed(self):
