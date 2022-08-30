@@ -15,7 +15,7 @@ from .utilities.status_message_config import StatusMessageStatus, show_status_me
 from .history import History
 from .display_master_log import DisplayMasterLog
 
-DEBUG = False
+DEBUG = True
 AUTOREDUCE_CONFIG_FILE_NAME = "autoreduce_cg1d_config.yaml"
 
 
@@ -237,7 +237,10 @@ class MainWindow(QMainWindow):
         o_display_log.show()
 
     def ipts_value_changed(self, value):
-        self.ipts_number = self.ui.ipts_spinBox.value()
+        self.ipts = self.ui.ipts_spinBox.value()
+
+    def ipts_value_finished_editing(self):
+        self.ipts = self.ui.ipts_spinBox.value()
 
     def preview_clicked(self):
         o_history = History(parent=self)
@@ -300,7 +303,7 @@ class MainWindow(QMainWindow):
         self.ui.ring_removal_algorithm_comboBox.setEnabled(False)
 
     def ok_clicked(self):
-        ipts_number = self.ui.ipts_spinBox.value()
+        ipts = self.ui.ipts_spinBox.value()
 
         crop_roi_mode = self.ui.crop_roi_checkBox.isChecked()
         if crop_roi_mode:
@@ -348,7 +351,7 @@ class MainWindow(QMainWindow):
             ring_removal_list_algorithm.append(self.ui.ring_removal_algorithm_comboBox.itemText(_row))
 
         yaml_data = {'DataPath':
-                         {'ipts': ipts_number,
+                         {'ipts': ipts,
                           },
                      'ROI': {
                          'mode': crop_roi_mode,

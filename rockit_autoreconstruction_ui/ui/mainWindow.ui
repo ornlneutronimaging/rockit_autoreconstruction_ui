@@ -642,7 +642,7 @@
      <x>0</x>
      <y>0</y>
      <width>851</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLog">
@@ -697,7 +697,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>838</x>
-     <y>710</y>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
@@ -712,8 +712,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>710</y>
+     <x>85</x>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>127</x>
@@ -792,8 +792,8 @@
    <slot>crop_ymin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>390</x>
-     <y>479</y>
+     <x>422</x>
+     <y>500</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -808,8 +808,8 @@
    <slot>crop_xmax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>575</x>
-     <y>517</y>
+     <x>624</x>
+     <y>544</y>
     </hint>
     <hint type="destinationlabel">
      <x>788</x>
@@ -824,8 +824,8 @@
    <slot>crop_ymax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>555</y>
+     <x>423</x>
+     <y>620</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -840,8 +840,8 @@
    <slot>crop_xmin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>253</x>
-     <y>517</y>
+     <x>301</x>
+     <y>544</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
@@ -904,8 +904,8 @@
    <slot>ring_removal_algorithm_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
-     <y>614</y>
+     <x>104</x>
+     <y>680</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -929,6 +929,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ipts_spinBox</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ipts_value_finished_editing()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>87</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
@@ -945,5 +961,6 @@
   <slot>ob_radioButton_changed()</slot>
   <slot>ring_removal_algorithm_checkBox_changed()</slot>
   <slot>display_log_triggered()</slot>
+  <slot>ipts_value_finished_editing()</slot>
  </slots>
 </ui>
