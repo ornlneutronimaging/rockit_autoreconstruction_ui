@@ -28,6 +28,10 @@ class MetadataDialog(QDialog):
 		self.init_tables()
 
 		self.load_json()
+		self.init_ob_local_reference_dict()
+		self.init_ob_combobox()
+
+
 		self.fill_tables()
 
 	def init_tables(self):
@@ -47,8 +51,10 @@ class MetadataDialog(QDialog):
 			self.data = json.load(json_file)
 
 	def fill_tables(self):
+		self.fill_sample_table()
+		# self.fill_ob_table()
 
-		# sample
+	def fill_sample_table(self):
 		o_sample = TableHandler(table_ui=self.ui.sample_tableWidget)
 		sample_dict = self.data['sample']
 		_row_index = 0
@@ -68,6 +74,47 @@ class MetadataDialog(QDialog):
 								 editable=False,
 								 value=sample_dict[_key]['value'])
 			_row_index += 1
+
+	def init_ob_local_reference_dict(self):
+		sample_dict = self.data['ob']
+		local_reference_dict = {}
+		for _key in sample_dict.keys():
+			local_reference_dict[sample_dict[_key]['filename']] = _key
+
+		self.ob_local_dict = local_reference_dict
+
+	def init_ob_combobox(self):
+		ob_local_reference_dict = self.ob_local_dict
+		list_files = list(ob_local_reference_dict.keys())
+		self.ui.ob_comboBox.addItems(list_files)
+
+	def ob_index_changed(self, index):
+		combo_text = self.ui.ob_comboBox.currentText()
+		metadata_index = self.ob_local_dict[combo_text]
+		ob_dict = self.data['ob'][metadata_index]
+		o_ob = TableHandler(table_ui=self.ui.ob_tableWidget)
+		o_ob.remove_all_rows()
+
+		_row_index = 0
+		for _key in ob_dict.keys():
+			if _key in LIST_KEYS_TO_IGNORE:
+				continue
+
+			o_ob.insert_empty_row(row=_row_index)
+
+			o_ob.insert_item(row=_row_index,
+								 column=0,
+								 editable=False,
+								 value=ob_dict[_key]['name'])
+
+			o_ob.insert_item(row=_row_index,
+								 column=1,
+								 editable=False,
+								 value=ob_dict[_key]['value'])
+			_row_index += 1
+
+	def dc_index_changed(self, index):
+		pass
 
 	def ok_pushed(self):
 		self.close()

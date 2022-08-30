@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>830</height>
+    <width>1161</width>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,6 +26,12 @@
          <width>110</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Input folder:</string>
@@ -53,6 +59,12 @@
          <width>110</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Source file name:</string>
@@ -126,7 +138,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="ob_comboBox"/>
       </item>
       <item>
        <widget class="QTableWidget" name="ob_tableWidget">
@@ -164,7 +176,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QComboBox" name="comboBox_2"/>
+       <widget class="QComboBox" name="dc_comboBox"/>
       </item>
       <item>
        <widget class="QTableWidget" name="dc_tableWidget">
@@ -230,14 +242,50 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>719</x>
-     <y>933</y>
+     <x>1088</x>
+     <y>798</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
-     <y>929</y>
+     <y>825</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ob_comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>ob_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>416</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dc_comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>dc_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>182</x>
+     <y>565</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>618</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>ob_index_changed()</slot>
+  <slot>dc_index_changed()</slot>
+ </slots>
 </ui>
