@@ -28,9 +28,10 @@ class MetadataDialog(QDialog):
 		self.init_tables()
 
 		self.load_json()
+		self.fill_tables()
 
 	def init_tables(self):
-		column_sizes = [100, 300]
+		column_sizes = [250, 300]
 
 		o_sample = TableHandler(table_ui=self.ui.sample_tableWidget)
 		o_sample.set_column_sizes(column_sizes=column_sizes)
@@ -43,12 +44,30 @@ class MetadataDialog(QDialog):
 
 	def load_json(self):
 		with open(self.metadata_file_name, 'r') as json_file:
-			data = json.load(json_file)
+			self.data = json.load(json_file)
+
+	def fill_tables(self):
 
 		# sample
-		sample_dict = data['sample']
+		o_sample = TableHandler(table_ui=self.ui.sample_tableWidget)
+		sample_dict = self.data['sample']
+		_row_index = 0
+		for _key in sample_dict.keys():
+			if _key in LIST_KEYS_TO_IGNORE:
+				continue
 
+			o_sample.insert_empty_row(row=_row_index)
 
+			o_sample.insert_item(row=_row_index,
+								 column=0,
+								 editable=False,
+								 value=sample_dict[_key]['name'])
+
+			o_sample.insert_item(row=_row_index,
+								 column=1,
+								 editable=False,
+								 value=sample_dict[_key]['value'])
+			_row_index += 1
 
 	def ok_pushed(self):
 		self.close()
