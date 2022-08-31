@@ -257,6 +257,7 @@ class MainWindow(QMainWindow):
     def activate_auto_reconstruction_clicked(self):
         activate_status = self.ui.activate_auto_reconstruction_checkBox.isChecked()
         self.ui.auto_reconstruction_frame.setEnabled(activate_status)
+        self.ui.end_of_run_textEdit.setEnabled(True)
 
     def crop_roi_checkBox_changed(self):
         status = self.ui.crop_roi_checkBox.isChecked()
