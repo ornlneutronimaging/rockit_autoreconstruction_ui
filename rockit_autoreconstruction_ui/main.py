@@ -105,6 +105,9 @@ class MainWindow(QMainWindow):
         self.ui.ring_removal_algorithm_checkBox.setChecked(self.removal_ring_mode)
         self.ring_removal_algorithm_checkBox_changed(self.removal_ring_mode)
 
+        # end of run
+        self.ui.end_of_run_coefficient_spinBox.setValue(self.end_of_run_coefficient)
+
     def read_yaml_and_set_widgets(self):
         file_name = self.autoreduce_config_file
         with open(file_name, "r") as stream:
@@ -206,6 +209,11 @@ class MainWindow(QMainWindow):
             self.removal_ring_algorithm = "Vos"
 
         self.removal_ring_algorithm_current_index = self.removal_ring_list_algorithm.index(self.removal_ring_algorithm)
+
+        try:
+            self.end_of_run_coefficient = yaml_data['acquisition_time_coefficient']
+        except KeyError:
+            self.end_of_run_coefficient = 5
 
         return Status.ok
 
@@ -345,6 +353,7 @@ class MainWindow(QMainWindow):
         automatic_edge_cropping = self.ui.automatic_edge_cropping_checkBox.isChecked()
         ring_removal_flag = self.ui.ring_removal_algorithm_checkBox.isChecked()
         ring_removal_algorithm = self.ui.ring_removal_algorithm_comboBox.currentText()
+        end_of_run_coefficient = self.ui.end_of_run_coefficient_spinBox.value()
 
         ring_removal_list_algorithm = []
         for _row in np.arange(self.ui.ring_removal_algorithm_comboBox.count()):
@@ -377,6 +386,7 @@ class MainWindow(QMainWindow):
                          'algorithm': ring_removal_algorithm,
                          'list_algorithm': ring_removal_list_algorithm,
                                     },
+                     'acquisition_time_coefficient': end_of_run_coefficient,
                      }
         with io.open(self.autoreduce_config_file, 'w') as outfile:
             yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)
