@@ -103,7 +103,7 @@ class History(QDialog):
 
 				# figure out log file name
 				folder_name = o_table.get_item_str_from_cell(row=_row, column=0)
-				base_folder_name = os.path.basename(folder_name) + "_autoreduce.log"
+				base_folder_name = os.path.basename(folder_name) + "_imars3d_autoreduce.log"
 				metadata_name = os.path.basename(folder_name) + "_sample_ob_dc_metadata.json"
 				metadata_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), metadata_name)
 				log_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), base_folder_name)
