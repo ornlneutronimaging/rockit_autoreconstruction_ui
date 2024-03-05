@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>882</width>
-    <height>724</height>
+    <width>1233</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,6 +103,11 @@
      <column>
       <property name="text">
        <string>Log File Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Output Folder</string>
       </property>
      </column>
      <column>
