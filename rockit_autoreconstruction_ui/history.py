@@ -139,4 +139,6 @@ class History(QDialog):
 			json.dump(dict, json_file)
 
 	def refresh_button_clicked(self):
+		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
+		o_table.remove_all_rows()
 		self.update_table()

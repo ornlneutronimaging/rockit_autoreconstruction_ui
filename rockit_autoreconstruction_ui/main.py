@@ -260,6 +260,7 @@ class MainWindow(QMainWindow):
         activate_status = self.ui.activate_auto_reconstruction_checkBox.isChecked()
         self.ui.auto_reconstruction_frame.setEnabled(activate_status)
         self.ui.end_of_run_textEdit.setEnabled(True)
+        self.save_state()
 
     def crop_roi_checkBox_changed(self):
         status = self.ui.crop_roi_checkBox.isChecked()
@@ -313,7 +314,13 @@ class MainWindow(QMainWindow):
         # self.ui.ring_removal_algorithm_comboBox.setEnabled(state)
         self.ui.ring_removal_algorithm_comboBox.setEnabled(False)
 
+    def save_button_clicked(self):
+        self.save_state()
+
     def ok_clicked(self):
+        self.close()
+
+    def save_state(self):
         ipts = self.ui.ipts_spinBox.value()
 
         crop_roi_mode = self.ui.crop_roi_checkBox.isChecked()
@@ -393,8 +400,6 @@ class MainWindow(QMainWindow):
                      }
         with io.open(self.autoreduce_config_file, 'w') as outfile:
             yaml.dump(yaml_data, outfile, default_flow_style=False, allow_unicode=True)
-
-        self.close()
 
     def closeEvent(self, event):
         self.close()
