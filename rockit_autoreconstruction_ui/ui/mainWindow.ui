@@ -366,7 +366,7 @@
             <x>0</x>
             <y>0</y>
             <width>559</width>
-            <height>220</height>
+            <height>239</height>
            </rect>
           </property>
           <attribute name="label">
@@ -552,7 +552,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>10</height>
+               <height>29</height>
               </size>
              </property>
             </spacer>
@@ -688,13 +688,6 @@ p, li { white-space: pre-wrap; }
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="cancel_pushButton">
-        <property name="text">
-         <string>Cancel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -708,9 +701,16 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="ok_pushButton">
         <property name="text">
-         <string>OK</string>
+         <string>Close</string>
         </property>
        </widget>
       </item>
@@ -724,7 +724,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>613</width>
-     <height>43</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLog">
@@ -778,28 +778,12 @@ p, li { white-space: pre-wrap; }
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>769</x>
-     <y>914</y>
+     <x>600</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
      <y>407</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancel_pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>92</x>
-     <y>914</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>127</x>
-     <y>371</y>
     </hint>
    </hints>
   </connection>
@@ -826,8 +810,8 @@ p, li { white-space: pre-wrap; }
    <slot>preview_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>253</x>
-     <y>147</y>
+     <x>240</x>
+     <y>135</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -858,8 +842,8 @@ p, li { white-space: pre-wrap; }
    <slot>crop_roi_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>588</y>
+     <x>105</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -874,8 +858,8 @@ p, li { white-space: pre-wrap; }
    <slot>crop_ymin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>393</x>
-     <y>639</y>
+     <x>309</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -890,11 +874,11 @@ p, li { white-space: pre-wrap; }
    <slot>crop_xmax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>571</x>
-     <y>681</y>
+     <x>487</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
-     <x>788</x>
+     <x>612</x>
      <y>364</y>
     </hint>
    </hints>
@@ -906,12 +890,12 @@ p, li { white-space: pre-wrap; }
    <slot>crop_ymax_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>394</x>
-     <y>753</y>
+     <x>310</x>
+     <y>378</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
-     <y>604</y>
+     <y>593</y>
     </hint>
    </hints>
   </connection>
@@ -922,8 +906,8 @@ p, li { white-space: pre-wrap; }
    <slot>crop_xmin_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>272</x>
-     <y>681</y>
+     <x>188</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>205</x>
@@ -938,8 +922,8 @@ p, li { white-space: pre-wrap; }
    <slot>automatic_open_beam_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
-     <y>202</y>
+     <x>64</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -954,12 +938,12 @@ p, li { white-space: pre-wrap; }
    <slot>ob_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>270</y>
+     <x>207</x>
+     <y>312</y>
     </hint>
     <hint type="destinationlabel">
      <x>57</x>
-     <y>603</y>
+     <y>593</y>
     </hint>
    </hints>
   </connection>
@@ -970,12 +954,12 @@ p, li { white-space: pre-wrap; }
    <slot>ob_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>81</x>
-     <y>301</y>
+     <x>95</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
      <x>97</x>
-     <y>613</y>
+     <y>593</y>
     </hint>
    </hints>
   </connection>
@@ -986,12 +970,12 @@ p, li { white-space: pre-wrap; }
    <slot>ring_removal_algorithm_checkBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>814</y>
+     <x>143</x>
+     <y>455</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
-     <y>659</y>
+     <y>593</y>
     </hint>
    </hints>
   </connection>
@@ -1027,6 +1011,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>485</x>
+     <y>535</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>532</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
@@ -1044,5 +1044,6 @@ p, li { white-space: pre-wrap; }
   <slot>ring_removal_algorithm_checkBox_changed()</slot>
   <slot>display_log_triggered()</slot>
   <slot>ipts_value_finished_editing()</slot>
+  <slot>save_button_clicked()</slot>
  </slots>
 </ui>
