@@ -45,13 +45,13 @@ class MainWindow(QMainWindow):
     def initialize(self):
         self.initialize_statusbar()
 
-        # status = self.initialize_config_file_name()
-        # if status == Status.error:
-        #     return
+        status = self.initialize_config_file_name()
+        if status == Status.error:
+            return
 
-        # status = self.read_yaml_and_set_widgets()
-        # if status == Status.error:
-        #     return
+        status = self.read_yaml_and_set_widgets()
+        if status == Status.error:
+            return
 
         self.initialize_widgets()
 
