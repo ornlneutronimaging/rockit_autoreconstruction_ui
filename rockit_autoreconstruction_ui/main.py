@@ -27,6 +27,7 @@ class Status(Enum):
 class MainWindow(QMainWindow):
 
     autoreduce_config_file = None
+    autoreduction_mode = True
     ipts_folder = "/HFIR/CG1D/"
     if DEBUG: ipts_folder = "/Users/j35/HFIR/CG1D/"
 
@@ -44,13 +45,13 @@ class MainWindow(QMainWindow):
     def initialize(self):
         self.initialize_statusbar()
 
-        status = self.initialize_config_file_name()
-        if status == Status.error:
-            return
+        # status = self.initialize_config_file_name()
+        # if status == Status.error:
+        #     return
 
-        status = self.read_yaml_and_set_widgets()
-        if status == Status.error:
-            return
+        # status = self.read_yaml_and_set_widgets()
+        # if status == Status.error:
+        #     return
 
         self.initialize_widgets()
 
