@@ -100,11 +100,11 @@ class MainWindow(QMainWindow):
         self.automatic_open_beam_checkBox_changed(self.ui.ob_checkBox.isChecked())
         self.ob_radioButton_changed()
 
-        # ring removal algorithm
-        self.ui.ring_removal_algorithm_comboBox.addItems(self.removal_ring_list_algorithm)
-        self.ui.ring_removal_algorithm_comboBox.setCurrentIndex(self.removal_ring_algorithm_current_index)
-        self.ui.ring_removal_algorithm_checkBox.setChecked(self.removal_ring_mode)
-        self.ring_removal_algorithm_checkBox_changed(self.removal_ring_mode)
+        # # ring removal algorithm
+        # self.ui.ring_removal_algorithm_comboBox.addItems(self.removal_ring_list_algorithm)
+        # self.ui.ring_removal_algorithm_comboBox.setCurrentIndex(self.removal_ring_algorithm_current_index)
+        # self.ui.ring_removal_algorithm_checkBox.setChecked(self.removal_ring_mode)
+        # self.ring_removal_algorithm_checkBox_changed(self.removal_ring_mode)
 
         # end of run
         self.ui.end_of_run_coefficient_spinBox.setValue(self.end_of_run_coefficient)
@@ -195,22 +195,22 @@ class MainWindow(QMainWindow):
             self.automatic_edge_cropping = True
 
         # removal ring artifact algorithms
-        try:
-            self.removal_ring_list_algorithm = yaml_data['ring_removal']['list_algorithm']
-        except KeyError:
-            self.removal_ring_list_algorithm = ["Vos", "bm3d"]
+        # try:
+        #     self.removal_ring_list_algorithm = yaml_data['ring_removal']['list_algorithm']
+        # except KeyError:
+        #     self.removal_ring_list_algorithm = ["Vos", "bm3d"]
 
-        try:
-            self.removal_ring_mode = yaml_data['ring_removal']['mode']
-        except KeyError:
-            self.removal_ring_mode = True
+        # try:
+        #     self.removal_ring_mode = yaml_data['ring_removal']['mode']
+        # except KeyError:
+        #     self.removal_ring_mode = True
 
-        try:
-            self.removal_ring_algorithm = yaml_data['ring_removal']['algorithm']
-        except KeyError:
-            self.removal_ring_algorithm = "Vos"
+        # try:
+        #     self.removal_ring_algorithm = yaml_data['ring_removal']['algorithm']
+        # except KeyError:
+        #     self.removal_ring_algorithm = "Vos"
 
-        self.removal_ring_algorithm_current_index = self.removal_ring_list_algorithm.index(self.removal_ring_algorithm)
+        # self.removal_ring_algorithm_current_index = self.removal_ring_list_algorithm.index(self.removal_ring_algorithm)
 
         try:
             self.end_of_run_coefficient = yaml_data['acquisition_time_coefficient']
