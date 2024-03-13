@@ -117,7 +117,7 @@ class History(QDialog):
 
 		display_log = menu.addAction("Preview reconstruction log ...")
 		menu.addSeparator()
-		remove_selection = menu.addAction("Remove selected row(s)")
+		remove_selection = menu.addAction("Remove selected row(s) to re-run reconstruction!")
 
 		action = menu.exec_(QtGui.QCursor.pos())
 
