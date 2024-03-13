@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         try:
             self.ipts = yaml_data['DataPath']['ipts']
         except KeyError:
-            self.ipts = 23788
+            self.ipts = 0
 
         try:
             self.crop_roi_mode = yaml_data['ROI']['mode']
