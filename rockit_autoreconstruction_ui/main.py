@@ -60,8 +60,6 @@ class MainWindow(QMainWindow):
         self.ui.activate_auto_reconstruction_checkBox.setChecked(self.autoreduction_mode)
         self.activate_auto_reconstruction_clicked()
 
-        print("intialize widgets:")
-        print(f" {self.ipts =}")
         self.ui.ipts_spinBox.setValue(int(self.ipts))
 
         if self.xmin:
@@ -113,7 +111,6 @@ class MainWindow(QMainWindow):
 
     def read_yaml_and_set_widgets(self):
         file_name = self.autoreduce_config_file
-        print(f"yaml file name: {file_name}")
 
         with open(file_name, "r") as stream:
             yaml_data = yaml.safe_load(stream)
@@ -325,9 +322,6 @@ class MainWindow(QMainWindow):
 
     def save_state(self):
         ipts = self.ipts
-
-        print("saving state")
-        print(f" {ipts =}")
 
         crop_roi_mode = self.ui.crop_roi_checkBox.isChecked()
         if crop_roi_mode:
