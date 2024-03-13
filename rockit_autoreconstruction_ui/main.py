@@ -60,6 +60,8 @@ class MainWindow(QMainWindow):
         self.ui.activate_auto_reconstruction_checkBox.setChecked(self.autoreduction_mode)
         self.activate_auto_reconstruction_clicked()
 
+        print("intialize widgets:")
+        print(f" {self.ipts =}")
         self.ui.ipts_spinBox.setValue(int(self.ipts))
 
         if self.xmin:
