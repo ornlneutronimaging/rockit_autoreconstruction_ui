@@ -21,6 +21,7 @@ class LogStatusColor:
 class LogStatus:
 	ok = "ok!"
 	bad = "failed!"
+	check_log = "Check log file for status!"
 	file_does_not_exist = "File missing!"
 	in_progress = "in progress!"
 
@@ -89,16 +90,9 @@ class History(QDialog):
 				if not os.path.exists(log_file_name):
 					log_status = LogStatus.file_does_not_exist
 				else:
-					log_text = read_ascii(log_file_name)
-					log_text = log_text.split("\n")
+					log_status = LogStatus.check_log
 
-					log_status = LogStatus.bad
-					for _text in log_text[::-1]:
-						if SUCCESSFUL_MESSAGE in _text:
-							log_status = LogStatus.ok
-							break
-
-				if log_status in [LogStatus.bad, LogStatus.file_does_not_exist]:
+				if log_status == LogStatus.file_does_not_exist:
 					qcolor=LogStatusColor.bad
 				else:
 					if self.output_folder_exists(output_folder):
@@ -106,7 +100,7 @@ class History(QDialog):
 						log_status = LogStatus.ok
 					else:
 						qcolor=LogStatusColor.in_progress
-						log_status = LogStatus.in_progress
+						log_status = LogStatus.check_log
 
 				o_table.insert_item(row=_row,
 									column=3,
