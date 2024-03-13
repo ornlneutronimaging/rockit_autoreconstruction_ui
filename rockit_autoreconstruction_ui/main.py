@@ -324,7 +324,7 @@ class MainWindow(QMainWindow):
         self.close()
 
     def save_state(self):
-        ipts = self.ui.ipts_spinBox.value()
+        ipts = self.ipts
 
         print("saving state")
         print(f" {ipts =}")
