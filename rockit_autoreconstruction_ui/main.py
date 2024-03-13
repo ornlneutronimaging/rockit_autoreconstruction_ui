@@ -116,8 +116,6 @@ class MainWindow(QMainWindow):
         with open(file_name, "r") as stream:
             yaml_data = yaml.safe_load(stream)
 
-        print(f"{yaml_data =}")
-
         try:
             self.ipts = yaml_data['DataPath']['ipts']
         except KeyError:
@@ -325,6 +323,9 @@ class MainWindow(QMainWindow):
 
     def save_state(self):
         ipts = self.ui.ipts_spinBox.value()
+
+        print("saving state")
+        print(f" {ipts =}")
 
         crop_roi_mode = self.ui.crop_roi_checkBox.isChecked()
         if crop_roi_mode:
