@@ -112,8 +112,11 @@ class MainWindow(QMainWindow):
     def read_yaml_and_set_widgets(self):
         file_name = self.autoreduce_config_file
         print(f"yaml file name: {file_name}")
+
         with open(file_name, "r") as stream:
             yaml_data = yaml.safe_load(stream)
+
+        print(f"{yaml_data =}")
 
         try:
             self.ipts = yaml_data['DataPath']['ipts']
