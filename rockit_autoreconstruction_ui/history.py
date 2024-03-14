@@ -111,7 +111,7 @@ class History(QDialog):
 							log_status = LogStatus.bad
 					else:
 						qcolor=LogStatusColor.in_progress
-						log_status = LogStatus.check_log
+						log_status = LogStatus.in_progress
 
 				o_table.insert_item(row=_row,
 									column=3,
