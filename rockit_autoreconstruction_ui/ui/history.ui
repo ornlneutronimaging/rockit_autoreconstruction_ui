@@ -64,6 +64,44 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Last refresh:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="last_refresh_label">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>N/A</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="refresh_button">
        <property name="minimumSize">
         <size>
@@ -153,7 +191,7 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="QPushButton" name="cancel_pushButton">
        <property name="text">
-        <string>CANCEL</string>
+        <string>CLOSE</string>
        </property>
       </widget>
      </item>
@@ -173,7 +211,7 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="QPushButton" name="ok_pushButton">
        <property name="text">
-        <string>SAVE</string>
+        <string>VALIDATE CHANGES</string>
        </property>
       </widget>
      </item>
@@ -190,8 +228,8 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>711</y>
+     <x>89</x>
+     <y>653</y>
     </hint>
     <hint type="destinationlabel">
      <x>188</x>
@@ -206,8 +244,8 @@ p, li { white-space: pre-wrap; }
    <slot>ok_pushed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>869</x>
-     <y>711</y>
+     <x>1220</x>
+     <y>653</y>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
@@ -238,8 +276,8 @@ p, li { white-space: pre-wrap; }
    <slot>refresh_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>855</x>
-     <y>28</y>
+     <x>1220</x>
+     <y>40</y>
     </hint>
     <hint type="destinationlabel">
      <x>879</x>

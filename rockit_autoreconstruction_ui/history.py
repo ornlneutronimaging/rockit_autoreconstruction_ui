@@ -3,6 +3,7 @@ from qtpy import QtGui
 import numpy as np
 import os
 import json
+import datetime
 
 from . import load_ui, refresh_file
 from .utilities.table_handler import TableHandler
@@ -41,6 +42,7 @@ class History(QDialog):
 		self.setWindowTitle(f"History of {self.parent.ipts} ct_scans folders reduced!")
 		self.initialization()
 		self.update_table()
+		self.update_refresh_time()
 
 	def initialization(self):
 		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
@@ -159,3 +161,10 @@ class History(QDialog):
 		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
 		o_table.remove_all_rows()
 		self.update_table()
+		# inform of last refresh
+		self.update_refresh_time()
+
+	def update_refresh_time(self):
+		now = datetime.datetime.now()
+		now_text = f"{now.hour}:{now.minute}:{now.second}"
+		self.ui.last_refresh_label.setText(now_text)
