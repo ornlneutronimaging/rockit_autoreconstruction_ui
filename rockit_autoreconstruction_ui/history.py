@@ -97,9 +97,18 @@ class History(QDialog):
 				if log_status == LogStatus.file_does_not_exist:
 					qcolor=LogStatusColor.bad
 				else:
-					if self.output_folder_exists(output_folder):
-						qcolor=LogStatusColor.ok
-						log_status = LogStatus.ok
+
+					# if last line is done we can check if the file is there too
+					with open(log_file_name, 'r') as f:
+						log_data = f.readlines()
+
+					if log_data[-1].startswith("Done!"):
+						if self.output_folder_exists(output_folder):
+							qcolor = LogStatusColor.ok
+							log_status = LogStatus.ok
+						else:
+							qcolor = LogStatusColor.bad
+							log_status = LogStatus.bad
 					else:
 						qcolor=LogStatusColor.in_progress
 						log_status = LogStatus.check_log
