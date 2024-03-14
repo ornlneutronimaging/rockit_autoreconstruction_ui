@@ -20,7 +20,7 @@ class LogStatusColor:
 
 
 class LogStatus:
-	ok = "ok!"
+	ok = "success!"
 	bad = "failed!"
 	check_log = "Check log file for status!"
 	file_does_not_exist = "File missing!"
