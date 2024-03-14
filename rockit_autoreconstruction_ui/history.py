@@ -90,13 +90,12 @@ class History(QDialog):
 						value=output_folder)
 
 				if not os.path.exists(log_file_name):
-					log_status = LogStatus.file_does_not_exist
-				else:
-					log_status = LogStatus.check_log
-
-				if log_status == LogStatus.file_does_not_exist:
+					log_status = LogStatus.bad
 					qcolor=LogStatusColor.bad
+
 				else:
+
+					log_status = LogStatus.check_log
 
 					# if last line is done we can check if the file is there too
 					with open(log_file_name, 'r') as f:
