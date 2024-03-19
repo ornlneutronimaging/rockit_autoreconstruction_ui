@@ -153,6 +153,16 @@
        <string>Status</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>iMars3d config file</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>script</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item>
