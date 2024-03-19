@@ -4,6 +4,8 @@ import numpy as np
 import os
 import json
 import datetime
+import subprocess
+import logging
 
 from . import load_ui, refresh_file
 from .utilities.table_handler import TableHandler
@@ -11,6 +13,17 @@ from .display_log import DisplayLog
 from .utilities.file import read_ascii
 
 SUCCESSFUL_MESSAGE = "RECONSTRUCTION LAUNCHED!"
+IMARS3D_CONFIGFILE_EXTENSION = "_imars3d_config.json"
+
+
+class HistoryColumnIndex:
+	status = 0
+	input_raw_folder = 1
+	log_file_name = 2
+	imars3d_config_file = 3
+	script = 4
+	output_folder = 5
+
 
 class LogStatusColor:
 
@@ -46,10 +59,18 @@ class History(QDialog):
 
 	def initialization(self):
 		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
-		column_sizes = [300, 300, 300, 50]
+
+		o_table.full_reset()
+
+		for _col in np.arange(6):
+			o_table.insert_empty_column(column=0)
+
+		o_table.set_column_names(["Status", "Input raw folder", "Log file name", "iMars3d config. file", "Script", "Output folder"])
+		column_sizes = [85, 300, 300, 300, 300, 300]
 		o_table.set_column_sizes(column_sizes=column_sizes)
 
 		self.autoreduce_path = self.parent.ipts_folder + os.path.join(f"IPTS-{self.parent.ipts}/shared/autoreduce/")
+		self.base_raw_folder = self.parent.ipts_folder + os.path.join(f"IPTS-{self.parent.ipts}/raw/ct_scans")
 		history_file = self.autoreduce_path + "ct_scans_folder_processed.json"
 		self.history_file = history_file
 		icon_refresh = QtGui.QIcon(refresh_file)
@@ -70,22 +91,27 @@ class History(QDialog):
 			for _row, _folder in enumerate(list_folders):
 				o_table.insert_empty_row(row=_row)
 				o_table.insert_item(row=_row,
-									column=0,
+									column=HistoryColumnIndex.input_raw_folder,
 									editable=False,
-									value=_folder)
+									value=os.path.basename(_folder))
 
-				folder_name = o_table.get_item_str_from_cell(row=_row, column=0)
+				folder_name = o_table.get_item_str_from_cell(row=_row, column=HistoryColumnIndex.input_raw_folder)
 				base_folder_name = os.path.basename(folder_name) + "_autoreduce.log"
 				log_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), base_folder_name)
 
+				# only for the first row, retrieve top path
+				if _row == 0:
+					self.ui.raw_folder.setText(self.base_raw_folder)
+					self.ui.autoreduce_folder.setText(self.autoreduce_path)
+
 				o_table.insert_item(row=_row,
-						column=1,
+						column=HistoryColumnIndex.log_file_name,
 						editable=False,
-						value=log_file_name)
+						value=os.path.basename(log_file_name))
 
 				output_folder = os.path.join(self.autoreduce_path, os.path.basename(folder_name))
 				o_table.insert_item(row=_row,
-						column=2,
+						column=HistoryColumnIndex.output_folder,
 						editable=False,
 						value=output_folder)
 
@@ -113,9 +139,30 @@ class History(QDialog):
 						log_status = LogStatus.in_progress
 
 				o_table.insert_item(row=_row,
-									column=3,
+									column=HistoryColumnIndex.status,
 									editable=False,
 									value=log_status)
+				
+				# imars3d config file 
+				imars3d_config_file = os.path.basename(output_folder + IMARS3D_CONFIGFILE_EXTENSION)
+				o_table.insert_item(row=_row,
+						column=HistoryColumnIndex.imars3d_config_file,
+						editable=False,
+						value=imars3d_config_file)
+
+				# cmd
+				full_imars3d_config_file = os.path.join(self.autoreduce_path, imars3d_config_file)
+				if os.path.exists(full_imars3d_config_file):
+					with open(full_imars3d_config_file, 'r') as json_file:
+						config_file = json.load(json_file)
+					cmd = config_file.get("cmd", "Not defined!")
+				else:
+					cmd = "Not defined!"
+				o_table.insert_item(row=_row,
+						column=HistoryColumnIndex.script,
+						editable=False,
+						value=cmd)
+
 				o_table.set_background_color_of_row(row=_row,
 													qcolor=qcolor)
 
@@ -127,7 +174,8 @@ class History(QDialog):
 
 		display_log = menu.addAction("Preview reconstruction log ...")
 		menu.addSeparator()
-		remove_selection = menu.addAction("Remove selected row(s) to re-run reconstruction!")
+		remove_selection = menu.addAction("Automatically re-run reconstruction!")
+		rerun_selection = menu.addAction("Manually re-run reconstruction!")
 
 		action = menu.exec_(QtGui.QCursor.pos())
 
@@ -137,6 +185,14 @@ class History(QDialog):
 		if action == remove_selection:
 			for _row in selected_rows[::-1]:
 				o_table.remove_row(_row)
+
+		elif action == rerun_selection:
+			for _row in selected_row(_row):
+				cmd = o_table.get_item_str_from_cell(row=_row,
+										 column=4)
+				logging.info(f"Manually running cmd: {cmd}")
+				proc = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, universal_newlines=True)
+				proc.communicate()
 
 		elif action == display_log:
 
