@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QDialog, QMenu
+from qtpy.QtWidgets import QDialog, QMenu, QApplication
 from qtpy import QtGui
 import numpy as np
 import os
@@ -172,10 +172,28 @@ class History(QDialog):
 	def history_right_click(self, point):
 		menu = QMenu(self)
 
+		o_table = TableHandler(table_ui=self.ui.history_tableWidget)
+		rows_selected = o_table.get_rows_of_table_selected()
+		columns_selected = o_table.get_columns_of_table_selected()
+		column_selected = o_table.get_column_selected()
+
+		# no COPY of cell if more than 1 cell is selected, and if not SCRIPT column selected
+		if (len(rows_selected) > 1) or (len(columns_selected)> 1):
+			enable_row = False
+		elif column_selected != HistoryColumnIndex.script:
+			enable_row = False
+		else:
+			enable_row = True
+
+		row_selected = o_table.get_row_selected()
+
 		display_log = menu.addAction("Preview reconstruction log ...")
 		menu.addSeparator()
 		remove_selection = menu.addAction("Automatically re-run reconstruction!")
 		rerun_selection = menu.addAction("Manually re-run reconstruction!")
+		menu.addSeparator()
+		copy_cell = menu.addAction("Copy")
+		copy_cell.setEnabled(enable_row)
 
 		action = menu.exec_(QtGui.QCursor.pos())
 
@@ -185,6 +203,12 @@ class History(QDialog):
 		if action == remove_selection:
 			for _row in selected_rows[::-1]:
 				o_table.remove_row(_row)
+
+		if action == copy_cell:
+			clipboard = o_table.get_item_str_from_cell(row=row_selected,
+											  column=column_selected)
+			print(f"{clipboard=}")
+			QApplication.clipboard().setText(clipboard)
 
 		elif action == rerun_selection:
 			for _row in selected_row(_row):

@@ -87,6 +87,28 @@ class TableHandler:
         list_row_selected.sort()
         return list_row_selected
 
+    def get_columns_of_table_selected(self):
+        if self.table_ui is None:
+            return []
+
+        selected_ranges = self.table_ui.selectedRanges()
+        if selected_ranges == []:
+            return []
+
+        list_column_selected = []
+        for _selection in selected_ranges:
+            left_column = _selection.leftColumn()
+            right_column = _selection.rightColumn()
+            if left_column == right_column:
+                list_column_selected.append(left_column)
+            else:
+                _range = np.arange(left_column, right_column + 1)
+                for _column in _range:
+                    list_column_selected.append(_column)
+
+        list_column_selected.sort()
+        return list_column_selected
+
     def get_row_selected(self):
         if self.table_ui is None:
             return -1
