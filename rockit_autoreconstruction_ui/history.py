@@ -213,7 +213,7 @@ class History(QDialog):
 		elif action == rerun_selection:
 			for _row in selected_row(_row):
 				cmd = o_table.get_item_str_from_cell(row=_row,
-										 column=4)
+										 column=HistoryColumnIndex.script)
 				logging.info(f"Manually running cmd: {cmd}")
 				proc = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, universal_newlines=True)
 				proc.communicate()
@@ -223,11 +223,14 @@ class History(QDialog):
 			for _row in selected_rows:
 
 				# figure out log file name
-				folder_name = o_table.get_item_str_from_cell(row=_row, column=0)
-				base_folder_name = os.path.basename(folder_name) + "_autoreduce.log"
+				folder_name = o_table.get_item_str_from_cell(row=_row, column=HistoryColumnIndex.log_file_name)
+				base_folder_name = os.path.basename(folder_name)
 				metadata_name = os.path.basename(folder_name) + "_sample_ob_dc_metadata.json"
 				metadata_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), metadata_name)
 				log_file_name = os.path.join(os.path.join(self.autoreduce_path, "reduction_log"), base_folder_name)
+
+				print(f"{metadata_file_name =}")
+				print(f"{log_file_name =}")
 
 				o_display = DisplayLog(parent=self,
 									   log_file_name=log_file_name,
@@ -239,7 +242,7 @@ class History(QDialog):
 		nbr_row = o_table.row_count()
 		table_content = []
 		for _row in np.arange(nbr_row):
-			cell_str = o_table.get_item_str_from_cell(row=_row, column=0)
+			cell_str = o_table.get_item_str_from_cell(row=_row, column=HistoryColumnIndex.input_raw_folder)
 			table_content.append(cell_str)
 		dict = {'list_folders': table_content}
 		with open(self.history_file, 'w') as json_file:
